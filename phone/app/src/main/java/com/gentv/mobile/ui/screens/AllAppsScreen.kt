@@ -130,7 +130,7 @@ fun AllAppsScreen(
             Row(Modifier.padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
                 Icon(if (sec.origin == Origin.YOURS) Icons.Rounded.Person else Icons.Rounded.Tv, null, Modifier.size(20.dp), tint = GenTVPalette.Muted)
                 Spacer(Modifier.width(8.dp))
-                Text("${sec.title} (${sec.size})", style = MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink)
+                Text("${com.gentv.mobile.ui.AppCopy.translate(sec.title, com.gentv.mobile.ui.LocalAppLanguage.current)} (${sec.size})", style = MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink)
             }
             sec.removable.forEach { AppRowItem(it, labels, all.facts[it.pkg], it.pkg in s.selected, onToggle) }
             if (sec.more.isNotEmpty()) {
