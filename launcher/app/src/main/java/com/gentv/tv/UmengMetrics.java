@@ -21,11 +21,12 @@ final class UmengMetrics {
     }
 
     static boolean consented(Context context) {
-        return true;
+        return TvCloud.prefs(context).getBoolean(CONSENT_KEY, false);
     }
 
     static void prepare(Context context) {
-        if (!available()) return;
+        // Do not initialize or pre-initialize Umeng before the user explicitly opts in.
+        if (!available() || !consented(context)) return;
         try {
             UMConfigure.preInit(context, BuildConfig.UMENG_APP_KEY, CHANNEL);
             prepared = true;
@@ -51,6 +52,7 @@ final class UmengMetrics {
         if (!enabled) onActivityPaused(visible);
         TvCloud.prefs(context).edit().putBoolean(CONSENT_KEY, enabled).apply();
         if (enabled && available()) {
+            prepare(context);
             initialize(context);
             onActivityResumed(visible, "privacy");
         }
