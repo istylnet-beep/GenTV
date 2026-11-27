@@ -77,7 +77,7 @@ fun WelcomeScreen(
         androidx.compose.foundation.layout.Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             Spacer(Modifier.weight(1f))
             androidx.compose.foundation.layout.Row(verticalAlignment = Alignment.CenterVertically) {
-                TextLink("恢复电视", onRestore, icon = Icons.Rounded.Restore)
+                TextLink("還原電視", onRestore, icon = Icons.Rounded.Restore)
                 androidx.compose.material3.IconButton(actions.settings) {
                     Icon(androidx.compose.material.icons.Icons.Outlined.Settings, "Settings", tint = GenTVPalette.Muted)
                 }
@@ -86,7 +86,7 @@ fun WelcomeScreen(
     }) {
         if (update != null) UpdateBanner(update, onDismissUpdate)
         if (savedTvs.isNotEmpty()) {
-            com.gentv.mobile.ui.AppText("我的设备", style = androidx.compose.material3.MaterialTheme.typography.headlineLarge, color = GenTVPalette.Ink)
+            com.gentv.mobile.ui.AppText("我的裝置", style = androidx.compose.material3.MaterialTheme.typography.headlineLarge, color = GenTVPalette.Ink)
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 savedTvs.take(5).forEach { tv ->
                     com.gentv.mobile.ui.TvCard(tv.title, savedSubtitle(tv), onClick = { onSavedTv(tv) }, trailing = {
@@ -122,8 +122,8 @@ fun WelcomeScreen(
         } else {
             com.gentv.mobile.ui.AppText("GenTV", style = androidx.compose.material3.MaterialTheme.typography.headlineLarge, color = GenTVPalette.Ink)
             HeroMascot(height = 210.dp)
-            Title("让电视，尽在掌握。")
-            Body("更清爽的电视桌面，更顺手的手机遥控，文件轻松传到大屏。")
+            Title("讓電視，盡在掌握。")
+            Body("更清爽的電視桌面、更順手的手機遙控，檔案輕鬆傳到大螢幕。")
         }
         if (savedTvs.isEmpty()) ConnectBlock()
         ChipRow(center = true) {
@@ -166,7 +166,7 @@ fun UnsupportedScreen(onBack: () -> Unit) {
 @Composable
 fun GetReadyScreen(kind: TvKind?, mode: Mode, onBack: () -> Unit = {}, onReady: () -> Unit) {
     val fire = kind == TvKind.FIRE_TV
-    ScreenFrame(top = { com.gentv.mobile.ui.TopBar("返回", onBack, null) }, bottom = { BigButton("准备好了，开始连接", onReady) }) {
+    ScreenFrame(top = { com.gentv.mobile.ui.TopBar("返回", onBack, null) }, bottom = { BigButton("準備好了，開始連線", onReady) }) {
         Title(if (mode == Mode.RESTORE) "Let's reconnect to your TV" else "准备连接电视")
         Body(if (mode == Mode.RESTORE) "TV on, same Wi-Fi, debugging still on." else "About a minute, and only once.")
         Outline {
