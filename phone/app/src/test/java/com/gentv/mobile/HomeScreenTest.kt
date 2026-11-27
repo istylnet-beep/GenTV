@@ -39,22 +39,22 @@ class HomeScreenTest {
         }
         compose.onNodeWithContentDescription("Settings").performClick()
         assertEquals("settings", chosen)
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("切换设备", com.gentv.mobile.ui.AppLanguage.ENGLISH)).performClick()
+        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("切换设备", com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE)).performClick()
         assertEquals("devices", chosen)
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("已连接", com.gentv.mobile.ui.AppLanguage.ENGLISH)).assertDoesNotExist()
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("Android 14", com.gentv.mobile.ui.AppLanguage.ENGLISH)).assertDoesNotExist()
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("触控遥控中心", com.gentv.mobile.ui.AppLanguage.ENGLISH)).assertDoesNotExist()
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("遥控器", com.gentv.mobile.ui.AppLanguage.ENGLISH)).performClick()
+        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("已连接", com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE)).assertDoesNotExist()
+        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("Android 14", com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE)).assertDoesNotExist()
+        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("触控遥控中心", com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE)).assertDoesNotExist()
+        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("遥控器", com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE)).performClick()
         assertEquals("remote", chosen)
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("文件快传", com.gentv.mobile.ui.AppLanguage.ENGLISH)).performScrollTo().performClick()
+        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("文件快传", com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE)).performScrollTo().performClick()
         assertEquals("files", chosen)
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("桌面整理", com.gentv.mobile.ui.AppLanguage.ENGLISH)).performScrollTo().performClick()
+        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("桌面整理", com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE)).performScrollTo().performClick()
         assertEquals("desktop", chosen)
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("电视诊断", com.gentv.mobile.ui.AppLanguage.ENGLISH)).performScrollTo().performClick()
+        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("电视诊断", com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE)).performScrollTo().performClick()
         assertEquals("check", chosen)
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("配置还原", com.gentv.mobile.ui.AppLanguage.ENGLISH)).performScrollTo().performClick()
+        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("配置还原", com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE)).performScrollTo().performClick()
         assertEquals("restore", chosen)
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("发现设备", com.gentv.mobile.ui.AppLanguage.ENGLISH)).performClick()
+        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("发现设备", com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE)).performClick()
         assertEquals("devices", chosen)
     }
 
@@ -109,7 +109,7 @@ class HomeScreenTest {
     }
 
     @Test fun handoverCopyHasChineseTranslations() {
-        val zh = com.gentv.mobile.ui.AppLanguage.CHINESE
+        val zh = com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE
         for (en in listOf(
             "Just preview it, keep my home screen", "Is GenTV on your TV?", "Yes, make GenTV my home screen",
             "Not now, keep my home screen", "GenTV installed, Home not switched", "Turn off the old home screen and try",
