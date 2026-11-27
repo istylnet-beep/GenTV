@@ -159,7 +159,7 @@ private fun OffApps(s: DoneState, labels: Map<String, String>, onTurnOn: (String
                 }
             }
         }
-        if (off.size > 6 && !showAll) TextLink("Show all ${off.size}", { showAll = true })
+        if (off.size > 6 && !showAll) TextLink(com.gentv.mobile.ui.AppCopy.translate("Show all {0}", com.gentv.mobile.ui.LocalAppLanguage.current).replace("{0}", off.size.toString()), { showAll = true })
     }
 }
 
