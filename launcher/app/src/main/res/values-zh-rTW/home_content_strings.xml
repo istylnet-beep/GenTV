@@ -1,0 +1,83 @@
+<resources>
+    <string name="home_content_title">主畫面內容</string>
+    <string name="home_content_help">允許相容的應用程式在第一列圖示取得焦點時顯示內容。安裝擴充功能後，請先在此允許顯示，再將圖示加入第一列。按上方向鍵進入內容；按下方向鍵或返回鍵回到圖示；按圖示的確認鍵仍會正常開啟應用程式。</string>
+    <string name="home_content_enable_all">啟用主畫面內容</string>
+    <string name="home_content_disable_all">關閉所有主畫面內容</string>
+    <string name="home_content_child_disabled">兒童保護啟用期間，不會顯示第三方主畫面內容。</string>
+    <string name="home_content_empty">尚未安裝宣告支援 GHCP 1 主畫面內容的應用程式。</string>
+    <string name="home_content_allowed">已允許 · 選取即可撤銷</string>
+    <string name="home_content_not_allowed">尚未允許</string>
+    <string name="home_content_allow_title">允許「%1$s」顯示內容嗎？</string>
+    <string name="home_content_consent">當第一列圖示取得焦點時，此應用程式可在主畫面桌布上顯示內容及選用的背景圖片。應用程式會在自己的程序中執行。若要讀取私人資料，仍須由應用程式另外取得授權。您可以隨時在此撤銷顯示權限。</string>
+    <string name="home_content_allow">允許</string>
+    <string name="home_content_open">開啟 →</string>
+
+    <!-- Gen 擴充功能商店 -->
+    <string name="ext_store_title">Gen 擴充功能</string>
+    <string name="ext_store_tagline">為電視主畫面，增添一點新意。</string>
+    <string name="ext_master_on">主畫面內容 · 已啟用</string>
+    <string name="ext_master_off">主畫面內容 · 已關閉</string>
+    <string name="ext_tab_featured">精選</string>
+    <string name="ext_tab_official">官方出品</string>
+    <string name="ext_tab_community">社群精選</string>
+    <string name="ext_tab_media">影音</string>
+    <string name="ext_tab_life">生活</string>
+    <string name="ext_tab_mine">我的擴充功能（%1$d）</string>
+    <string name="ext_section_more">探索更多擴充功能</string>
+    <string name="ext_section_installed">本機已安裝</string>
+    <string name="ext_badge_official">GenTV 官方</string>
+    <string name="ext_badge_community">社群作品</string>
+    <string name="ext_badge_installed">已安裝</string>
+    <string name="ext_badge_enabled">已啟用</string>
+    <string name="ext_badge_preview">顯示預覽</string>
+    <string name="ext_action_details">查看詳細資訊</string>
+    <string name="ext_action_allow">允許在主畫面顯示</string>
+    <string name="ext_action_revoke">撤銷主畫面權限</string>
+    <string name="ext_action_open_app">開啟應用程式</string>
+    <string name="ext_action_coming_soon">擴充功能目錄即將開放下載</string>
+    <string name="ext_catalog_notice">線上擴充功能目錄正式上線後，將開放一鍵安裝；本機已安裝且相容 GHCP 1 的擴充功能，會自動顯示在「我的擴充功能」中，並可直接授權啟用。</string>
+    <string name="ext_preview_caption">主畫面首屏樣式預覽 · 輕盈呈現在桌布之上</string>
+    <string name="ext_step_install">1. 安裝應用程式</string>
+    <string name="ext_step_dock">2. 加入第一列</string>
+    <string name="ext_step_allow">3. 允許顯示</string>
+    <string name="ext_meta_ratings">%1$s · %2$s 則評分</string>
+    <string name="ext_meta_local_desc">已安裝於本機且相容 GHCP 1 的擴充功能。授予權限並將圖示加入主畫面第一列後，取得焦點時即可在首屏顯示即時內容。</string>
+    <string name="ext_empty_mine_hint">在電視上安裝支援 GHCP 1 協定的擴充功能應用程式後，就會自動顯示於此，方便您一鍵授權及管理。</string>
+
+    <!-- 精選擴充功能展示項目 -->
+    <string name="ext_weather_name">Gen 天氣</string>
+    <string name="ext_weather_sub">不必開啟應用程式，將焦點移至圖示即可查看今日氣溫與穿搭提示。</string>
+    <string name="ext_weather_desc">將今日氣溫、天氣狀態及出行提醒，輕巧呈現在主畫面桌布上。支援手動選擇城市，不需要定位權限，沒有廣告、不受打擾。</string>
+    <string name="ext_weather_author">GenTV 出品</string>
+    <string name="ext_weather_tags">GHCP 1 · 免費 · 免登入</string>
+
+    <string name="ext_continue_name">繼續觀看</string>
+    <string name="ext_continue_sub">將尚未看完的電影與影集，優雅地放回首屏。</string>
+    <string name="ext_continue_desc">從您授權的本機影音庫同步續播進度，並以藝廊卡片呈現在首屏。按下遙控器確認鍵，即可直接從上次停止的位置繼續播放。</string>
+    <string name="ext_continue_author">Kino 社群</string>
+    <string name="ext_continue_tags">GHCP 1 · 影音 · 本機授權</string>
+
+    <string name="ext_daily_name">每日一圖</string>
+    <string name="ext_daily_sub">每天欣賞一張值得駐足的風景攝影，為客廳換個心情。</string>
+    <string name="ext_daily_desc">每日精選高畫質自然與建築攝影，以極簡玻璃畫框柔和呈現在電視首屏，並支援本機離線快取。</string>
+    <string name="ext_daily_author">GenTV 出品</string>
+    <string name="ext_daily_tags">GHCP 1 · 免費 · 離線快取</string>
+
+    <string name="ext_calendar_name">家庭行事曆</string>
+    <string name="ext_calendar_sub">一眼掌握今天及本週末的家庭行程。</string>
+    <string name="ext_calendar_desc">以極簡半透明行程列，在客廳電視首屏安靜呈現家庭聚餐、紀念日及週末出遊計畫。</string>
+    <string name="ext_calendar_author">Lumen 社群</string>
+    <string name="ext_calendar_tags">GHCP 1 · 資訊 · 唯讀權限</string>
+
+    <string name="ext_clock_name">極簡時鐘</string>
+    <string name="ext_clock_sub">搭配超細字體時鐘、節氣與農曆資訊。</string>
+    <string name="ext_clock_desc">致敬經典工業設計的輕巧數位時鐘，結合農曆日期與柔和的日落光暈，讓待機主畫面宛如藝術品。</string>
+    <string name="ext_clock_author">Atelier Mono</string>
+    <string name="ext_clock_tags">GHCP 1 · 免費 · 完全離線</string>
+
+    <string name="ext_smart_name">居家環境</string>
+    <string name="ext_smart_sub">客廳燈光、溫濕度及空氣品質，一個畫面全部掌握。</string>
+    <string name="ext_smart_desc">透過區域網路直接連線客廳智慧裝置，以極簡 Apple 風格的狀態膠囊，即時呈現燈光亮度、室內溫度及空氣品質。</string>
+    <string name="ext_smart_author">OpenHabitat</string>
+    <string name="ext_smart_tags">GHCP 1 · 區域網路 · 隱私優先</string>
+</resources>
