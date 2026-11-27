@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GenTV 天氣</string>
+    <string name="feels_like">體感 %1$s</string>
+    <string name="high_low">最高 %1$s   最低 %2$s</string>
+    <string name="air_quality">空氣品質</string>
+    <string name="aqi_detail">AQI %1$d</string>
+    <string name="wind">風速</string>
+    <string name="wind_unit">km/h · %1$s</string>
+    <string name="wind_desktop">%1$s · 日落 %2$s</string>
+    <string name="sunset">日落</string>
+    <string name="uv_short">紫外線 %1$d · %2$s</string>
+    <string name="now">現在</string>
+    <string name="today">今天</string>
+    <string name="seven_day_forecast">未來 7 日預報</string>
+    <string name="synced_to_home">已同步至 GenTV 主畫面</string>
+    <string name="humidity_label">濕度 %1$d%%</string>
+    <string name="sunrise_label">日出 %1$s</string>
+    <string name="data_source">Open-Meteo 全球氣象</string>
+    <string name="loading">正在更新天氣…</string>
+    <string name="offline_cached">目前顯示快取資料</string>
+    <string name="offline_error">暫時無法連線至氣象服務</string>
+    <string name="manage_cities">全球城市管理</string>
+    <string name="search_hint">搜尋全球任意城市（例如：台北、Tokyo、London）</string>
+    <string name="search_button">搜尋</string>
+    <string name="auto_locate">IP 自動定位</string>
+    <string name="locating">正在定位…</string>
+    <string name="located_toast">已定位：%1$s</string>
+    <string name="locate_failed">目前無法透過 IP 取得所在城市</string>
+    <string name="popular_cities">全球熱門城市</string>
+    <string name="saved_cities">已收藏城市</string>
+    <string name="search_results">搜尋結果</string>
+    <string name="no_results">找不到符合的城市</string>
+    <string name="remove_city">移除</string>
+    <string name="refresh">重新整理</string>
+    <string name="refreshing">正在更新…</string>
+    <string name="updated_at">已更新 · %1$s</string>
+    <string name="hourly_probe">%1$s · %2$s · %3$s</string>
+    <string name="added_mark">已收藏</string>
+    <string name="close">關閉</string>
+</resources>
