@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metrics_title">隱私權與使用統計</string>
+    <string name="metrics_hint">預設為關閉，此版本需要重新啟用。啟用後，會回報可讀取的本機有效 MAC 位址、隨機安裝 ID、固定頁面、操作、版本、工作階段及前景執行時間。伺服器優先使用 MAC 位址的加密雜湊值去重；若無法取得 MAC 位址，則改用安裝 ID 去重。不會儲存或顯示原始 MAC 位址，也不會讀取應用程式名稱或輸入內容。有效 MAC 位址可能在重新安裝後仍用於識別同一裝置；關閉統計功能會清除待傳送事件並重設安裝 ID，但無法撤回先前已建立的關聯。實體測試裝置請啟用測試標記。</string>
+    <string name="metrics_test">將後續回報標記為測試流量（模擬器會自動標記）</string>
+    <string name="metrics_share_statistics">傳送使用統計資料</string>
+    <string name="metrics_umeng_consent">傳送使用統計資料至友盟</string>
+    <string name="metrics_umeng_hint">選擇性功能，預設為關閉。啟用後，友盟 U-App 會接收裝置識別資訊、網路資訊、應用程式版本，以及 GenTV 的固定頁面與操作事件。GenTV 不會傳送應用程式名稱或輸入內容。關閉後會停止提交新的 GenTV 事件；重新啟動 GenTV 可停止已初始化的 SDK。詳情請參閱隱私權說明及友盟隱私權政策。</string>
+    <string name="metrics_umeng_unavailable">目前版本未設定友盟統計功能。</string>
+</resources>
