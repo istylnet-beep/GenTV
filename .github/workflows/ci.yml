@@ -52,3 +52,30 @@ jobs:
         working-directory: phone
         env:
           GENTV_HOME_JAVA_HOME: ${{ steps.jdk17.outputs.path }}
+      - name: Stage GenTV Remote APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="$(find phone/app/build/outputs/apk/debug -maxdepth 1 -type f -name '*.apk' | head -n 1)"
+          test -n "$APK"
+          mkdir -p dist
+          cp "$APK" dist/GenTV-Remote-debug.apk
+      - name: Package complete source ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          SHORT_SHA="${GITHUB_SHA::12}"
+          zip -qr "dist/GenTV-Remote-source-${SHORT_SHA}.zip" . \
+            -x '.git/*' '*/.git/*' '*/.gradle/*' '*/build/*' '*/.idea/*' \
+               '*/local.properties' '*/keys/signing.properties' '*/keys/*.jks' '*/keys/*.keystore' \
+               'dist/*'
+          test -s "dist/GenTV-Remote-source-${SHORT_SHA}.zip"
+      - name: Upload APK and complete source ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: GenTV-Remote-Delivery-${{ github.sha }}
+          path: |
+            dist/GenTV-Remote-debug.apk
+            dist/GenTV-Remote-source-*.zip
+          if-no-files-found: error
+          retention-days: 30
