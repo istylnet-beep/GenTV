@@ -45,7 +45,7 @@ fun SettingsScreen(update: UpdateStatus, onBack: () -> Unit, onCheck: () -> Unit
                 UpdateStatus.Failed -> Note("Could not check for updates. Try again later.")
                 UpdateStatus.Unconfigured -> Note("Automatic update service is not configured yet. Visit the official website for downloads.")
                 is UpdateStatus.Available -> {
-                    SafetyBanner("A newer version is available: ${update.info.version}")
+                    SafetyBanner(AppCopy.translate("A newer version is available: {0}", LocalAppLanguage.current).replace("{0}", update.info.version))
                     if (update.info.minSdk > android.os.Build.VERSION.SDK_INT) Note("This update requires a newer Android version.")
                     else TextLink("Download update", { if (update.info.installable) onDownloadUpdate(update.info) else onOpenUrl(UpdateCheck.SITE_URL) })
                 }
