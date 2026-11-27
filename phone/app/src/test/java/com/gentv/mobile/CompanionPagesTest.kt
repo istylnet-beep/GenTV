@@ -45,12 +45,12 @@ class CompanionPagesTest {
         compose.setContent { GenTVTheme { DiscoveryScreen(scan, tv, { event = it }, {}) } }
         compose.onNodeWithText(other.title).performScrollTo().performClick()
         assertEquals(ConnectEvent.Pick(other), event)
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("重新检测", com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE)).performScrollTo().performClick()
+        compose.onNodeWithText("重新搜尋").performScrollTo().performClick()
         assertEquals(ConnectEvent.StartScan, event)
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("手动通过 IP 地址直连", com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE)).performScrollTo().performClick()
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("立即连接", com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE)).assertIsNotEnabled()
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("电视 IP 地址", com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE)).performTextInput("192.168.1.60")
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("立即连接", com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE)).performClick()
+        compose.onNodeWithText("手動輸入 IP 位址直接連線").performScrollTo().performClick()
+        compose.onNodeWithText("立即連線").assertIsNotEnabled()
+        compose.onNodeWithText("電視 IP 位址").performTextInput("192.168.1.60")
+        compose.onNodeWithText("立即連線").performClick()
         assertEquals(ConnectEvent.TypedIp("192.168.1.60"), event)
     }
 
@@ -76,7 +76,7 @@ class CompanionPagesTest {
         assertEquals(remote.apps.first(), launched)
         compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("取消", com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE)).performScrollTo().performClick()
         assertEquals(7, cancelled)
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("重试", com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE)).performScrollTo().performClick()
+        compose.onNodeWithText("重試").performScrollTo().performClick()
         assertEquals(8, retried)
     }
 
