@@ -103,25 +103,25 @@ fun HubScreen(
             ) {
                 DeviceShowcase(tv, onBack, tvScreen)
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(9.dp)) {
-                    QuickEntry("应用管理", GenIcons.Apps, onApps, Modifier.weight(1f))
-                    QuickEntry("文件快传", GenIcons.Send, onFiles, Modifier.weight(1f))
-                    if (!fireTv) QuickEntry("电视桌面", GenIcons.Home, onHomeScreen, Modifier.weight(1f))
+                    QuickEntry("應用程式管理", GenIcons.Apps, onApps, Modifier.weight(1f))
+                    QuickEntry("檔案快傳", GenIcons.Send, onFiles, Modifier.weight(1f))
+                    if (!fireTv) QuickEntry("電視桌面", GenIcons.Home, onHomeScreen, Modifier.weight(1f))
                 }
                 Row(Modifier.fillMaxWidth().padding(top = 8.dp, start = 4.dp, end = 4.dp), horizontalArrangement = Arrangement.SpaceBetween) {
                     Text("系統維護與最佳化", color = HomePalette.Secondary, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
                     Text("依需求檢查", color = HomePalette.Muted, fontSize = 12.sp)
                 }
                 Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    MaintenanceCard("空间深度清理", "查看存储与缓存", "待检测", GenIcons.Storage, false, onSpace, Modifier.weight(1f).fillMaxHeight())
-                    MaintenanceCard("广告过滤", "查看电视 DNS 配置", "待检测", GenIcons.Shield, true, onAds, Modifier.weight(1f).fillMaxHeight())
+                    MaintenanceCard("深度清理空間", "查看儲存空間與快取", "待檢查", GenIcons.Storage, false, onSpace, Modifier.weight(1f).fillMaxHeight())
+                    MaintenanceCard("廣告過濾", "查看電視 DNS 設定", "待檢查", GenIcons.Shield, true, onAds, Modifier.weight(1f).fillMaxHeight())
                 }
                 Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    FeatureEntry("电视诊断", "检查应用与桌面状态", GenIcons.Check, onCheck, Modifier.weight(1f).fillMaxHeight())
-                    FeatureEntry("配置还原", "撤销最近的电视更改", GenIcons.Restore, onRestore, Modifier.weight(1f).fillMaxHeight())
+                    FeatureEntry("電視診斷", "檢查應用程式與桌面狀態", GenIcons.Check, onCheck, Modifier.weight(1f).fillMaxHeight())
+                    FeatureEntry("設定還原", "復原最近的電視變更", GenIcons.Restore, onRestore, Modifier.weight(1f).fillMaxHeight())
                 }
                 Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    FeatureEntry("应用精简", if (appsOff > 0) "已停用 $appsOff 项" else "选择需要停用的应用", GenIcons.Clean, onTidy, Modifier.weight(1f).fillMaxHeight())
-                    if (!fireTv) FeatureEntry("桌面整理", "排序、改名与外观", GenIcons.Home, onDesktop, Modifier.weight(1f).fillMaxHeight())
+                    FeatureEntry("應用程式精簡", if (appsOff > 0) "已停用 $appsOff 項" else "選擇要停用的應用程式", GenIcons.Clean, onTidy, Modifier.weight(1f).fillMaxHeight())
+                    if (!fireTv) FeatureEntry("桌面整理", "排序、重新命名與外觀", GenIcons.Home, onDesktop, Modifier.weight(1f).fillMaxHeight())
                     else Spacer(Modifier.weight(1f))
                 }
             }
@@ -135,7 +135,7 @@ private fun HomeHeader(tv: TvSummary?, onDevices: () -> Unit, onSettings: () -> 
     Row(Modifier.fillMaxWidth().background(Color(0xFF101012)).heightIn(min = 56.dp).padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically) {
         Row(Modifier.clip(CircleShape).clickable(role = Role.Button, onClick = onDevices).padding(horizontal = 10.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
             Icon(Icons.Outlined.Wifi, null, Modifier.size(17.dp), tint = HomePalette.Green)
-            Text(tv?.title ?: "选择电视", localize = tv == null, color = HomePalette.Secondary, fontSize = 14.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.widthIn(max = 240.dp))
+            Text(tv?.title ?: "選擇電視", localize = tv == null, color = HomePalette.Secondary, fontSize = 14.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.widthIn(max = 240.dp))
         }
         Spacer(Modifier.weight(1f))
         IconButton(onClick = onSettings) { Icon(Icons.Outlined.Settings, "Settings", Modifier.size(22.dp), tint = HomePalette.Secondary) }
@@ -267,10 +267,10 @@ private fun Chevron() { Icon(Icons.Outlined.ChevronRight, null, Modifier.size(18
 @Composable
 private fun HomeNavigation(onRemote: () -> Unit, onDevices: () -> Unit, onApps: () -> Unit) {
     Row(Modifier.fillMaxWidth().background(Color(0xFF101012)).padding(top = 8.dp, bottom = 6.dp), horizontalArrangement = Arrangement.SpaceAround) {
-        NavItem("首页", Icons.Outlined.Tv, true, {})
+        NavItem("首頁", Icons.Outlined.Tv, true, {})
         NavItem("遥控器", GenIcons.Remote, false, onRemote)
         NavItem("发现设备", Icons.Outlined.Sensors, false, onDevices)
-        NavItem("应用投送", Icons.Outlined.Cast, false, onApps)
+        NavItem("應用程式投送", Icons.Outlined.Cast, false, onApps)
     }
 }
 
