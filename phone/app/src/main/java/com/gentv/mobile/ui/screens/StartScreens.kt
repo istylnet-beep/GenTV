@@ -145,7 +145,7 @@ private fun UpdateBanner(update: com.gentv.mobile.data.UpdateInfo, onDismiss: ()
         verticalAlignment = Alignment.CenterVertically,
     ) {
         com.gentv.mobile.ui.AppText(
-            "GenTV ${update.version} is out", style = androidx.compose.material3.MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink,
+            com.gentv.mobile.ui.AppCopy.translate("GenTV {0} is out", com.gentv.mobile.ui.LocalAppLanguage.current).replace("{0}", update.version), style = androidx.compose.material3.MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink,
             modifier = Modifier.weight(1f),
         )
         TextLink("Get it", { if (update.installable) actions.downloadUpdate(update) else actions.openUrl(com.gentv.mobile.data.UpdateCheck.SITE_URL) })
