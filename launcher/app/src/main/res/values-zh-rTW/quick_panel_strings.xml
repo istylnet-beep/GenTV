@@ -24,7 +24,7 @@
     <string name="quick_about">關於 GenTV</string>
     <string name="quick_about_detail">GenTV %1$s\n免費、開放原始碼、無廣告的 Android TV 主畫面。</string>
     <string name="quick_memory_detail">目前可用記憶體：%1$s\nAndroid 會自動管理背景記憶體；您也可以前往應用程式管理，停止不使用的應用程式。</string>
-    <string name="quick_start_app">設定開機啟動應用程式</string>
+
     <string name="memory_cleaning">正在清理記憶體</string>
     <string name="memory_cleaned">已釋放 %1$d MB 記憶體空間</string>
     <string name="memory_cleanup_scope">%1$d 個背景程序已結束 · 按確認鍵返回</string>
