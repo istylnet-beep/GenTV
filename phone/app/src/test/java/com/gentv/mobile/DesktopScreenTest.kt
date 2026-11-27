@@ -30,9 +30,9 @@ class DesktopScreenTest {
         var saved: String? = null
         compose.setContent { GenTVTheme { DesktopScreen(state, {}, {}, { saved = it }, {}, {}, { _, _ -> }) } }
         compose.onNodeWithText("Music").performScrollTo().performClick()
-        compose.onNodeWithText("Move earlier").performScrollTo().performClick()
+        compose.onNodeWithText("向前移動").performScrollTo().performClick()
         assertNull("Moving should not write to the TV", saved)
-        compose.onNodeWithText("Save and verify").performClick()
+        compose.onNodeWithText("儲存並驗證").performClick()
         compose.waitForIdle()
         assertEquals("com.example.music", JSONObject(saved!!).getJSONArray("order").getString(0))
     }
@@ -46,7 +46,7 @@ class DesktopScreenTest {
         val modern = DesktopState(snapshot = """{"protocol":1,"revision":3,"config":{"schema":2,"order":["com.example.music/.MainActivity"],"hidden":[],"names":{},"effects":"auto","pinnedSources":[],"sourceNames":{},"sourceDevices":{},"sourceTargets":{}},"apps":[{"id":"com.example.music/.MainActivity","label":"Music"}],"sources":[]}""")
         var saved: String? = null
         compose.setContent { GenTVTheme { DesktopScreen(modern, {}, {}, { saved = it }, {}, {}, { _, _ -> }) } }
-        compose.onNodeWithText("Save and verify").performClick()
+        compose.onNodeWithText("儲存並驗證").performClick()
         compose.waitForIdle()
         val profile=JSONObject(saved!!)
         assertEquals(2,profile.getInt("schema"))
@@ -59,16 +59,16 @@ class DesktopScreenTest {
         val modern = DesktopState(snapshot = """{"protocol":1,"revision":3,"capabilities":["folders","images"],"config":{"schema":2,"order":["com.example.music/.MainActivity"],"hidden":[],"names":{},"effects":"auto","folders":{},"images":{}},"apps":[{"id":"com.example.music/.MainActivity","label":"Music"}],"sources":[]}""")
         var saved: String? = null
         compose.setContent { GenTVTheme { DesktopScreen(modern, {}, {}, { saved = it }, {}, {}, { _, _ -> }) } }
-        compose.onNodeWithText("New folder").performScrollTo().performClick()
-        compose.onNodeWithText("Folder name").performTextInput("Video")
-        compose.onNodeWithText("Create").performClick()
+        compose.onNodeWithText("新增資料夾").performScrollTo().performClick()
+        compose.onNodeWithText("資料夾名稱").performTextInput("Video")
+        compose.onNodeWithText("建立").performClick()
         assertNull(saved)
-        compose.onNodeWithText("Save and verify").performClick()
+        compose.onNodeWithText("儲存並驗證").performClick()
         val profile=JSONObject(saved!!)
         assertEquals(1,profile.getJSONObject("folders").length())
         assertEquals("Video",profile.getJSONObject("folders").getJSONObject(profile.getJSONObject("folders").keys().next()).getString("name"))
-        compose.onNodeWithText("Dissolve folder; keep apps").performScrollTo().performClick()
-        compose.onNodeWithText("Save and verify").performClick()
+        compose.onNodeWithText("刪除資料夾並保留應用程式").performScrollTo().performClick()
+        compose.onNodeWithText("儲存並驗證").performClick()
         assertEquals(0,JSONObject(saved!!).getJSONObject("folders").length())
         assertEquals("com.example.music/.MainActivity",JSONObject(saved!!).getJSONArray("order").getString(0))
     }
