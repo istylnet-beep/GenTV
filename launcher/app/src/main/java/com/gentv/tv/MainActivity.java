@@ -3928,9 +3928,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             });
         }
         addSettingsMenuRow(rows, popup, R.string.desktop_control_center, () -> QuickSettingsGlass.open(this));
-        if (HomeContentRegistry.supported()) addSettingsMenuRow(rows, popup, R.string.home_content_title,
-                () -> startActivity(new Intent(this, HomeContentSettingsActivity.class)));
-        if (moduleCards) addSettingsMenuRow(rows, popup, R.string.module_cards, this::showModuleCards);
         if (dockRow) addSettingsMenuRow(rows, popup, R.string.dock_edit, this::startDockEdit);
         addSettingsMenuRow(rows, popup, R.string.reorder, this::toggleReorder);
         // A launcher may not restart the TV itself; the Home key helper can open the system power menu instead.
