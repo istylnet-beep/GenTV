@@ -191,7 +191,7 @@ private fun TelevisionPanel(tv: TvSummary?, onDevices: () -> Unit, screenshot: a
                     }
                     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                         Column(Modifier.weight(1f)) {
-                            Text(tv?.model ?: "我的电视", localize = tv == null, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                            Text(tv?.model ?: "我的電視", localize = tv == null, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp, maxLines = 2, overflow = TextOverflow.Ellipsis)
                             if (tv != null) Text("Android TV", fontSize = 10.sp, color = Color.White.copy(alpha = .65f))
                         }
 
@@ -268,8 +268,8 @@ private fun Chevron() { Icon(Icons.Outlined.ChevronRight, null, Modifier.size(18
 private fun HomeNavigation(onRemote: () -> Unit, onDevices: () -> Unit, onApps: () -> Unit) {
     Row(Modifier.fillMaxWidth().background(Color(0xFF101012)).padding(top = 8.dp, bottom = 6.dp), horizontalArrangement = Arrangement.SpaceAround) {
         NavItem("首頁", Icons.Outlined.Tv, true, {})
-        NavItem("遥控器", GenIcons.Remote, false, onRemote)
-        NavItem("发现设备", Icons.Outlined.Sensors, false, onDevices)
+        NavItem("遙控器", GenIcons.Remote, false, onRemote)
+        NavItem("發現裝置", Icons.Outlined.Sensors, false, onDevices)
         NavItem("應用程式投送", Icons.Outlined.Cast, false, onApps)
     }
 }
