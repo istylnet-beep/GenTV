@@ -20,6 +20,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.gentv.mobile.data.DesktopState
 import com.gentv.mobile.ui.*
+import com.gentv.mobile.ui.AppText as Text
 import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.math.roundToInt
