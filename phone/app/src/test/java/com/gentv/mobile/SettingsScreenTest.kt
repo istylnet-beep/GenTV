@@ -20,23 +20,20 @@ import org.robolectric.annotation.GraphicsMode
 class SettingsScreenTest {
     @get:org.junit.Rule val configuredApi = ConfiguredApi()
     @get:Rule val compose = createComposeRule()
-    @Test fun languageChangesImmediatelyAndSettingsCanGoBack() {
-        var selected = AppLanguage.ENGLISH
+    @Test fun settingsExposeOnlyTaiwanTraditionalChineseAndCanGoBack() {
         var back = false
         compose.setContent {
-            var language by remember { mutableStateOf(AppLanguage.ENGLISH) }
-            CompositionLocalProvider(LocalAppLanguage provides language, LocalChangeLanguage provides { selected = it; language = it }) {
+            CompositionLocalProvider(LocalAppLanguage provides AppLanguage.TRADITIONAL_CHINESE) {
                 GenTVTheme { SettingsScreen(UpdateStatus.Idle, { back = true }, {}, {}) }
             }
         }
-        compose.onNodeWithText("Settings").assertExists()
-        compose.onNodeWithText("简体中文").performClick()
-        assertEquals(AppLanguage.CHINESE, selected)
-        compose.onNodeWithText("设置").assertExists()
-        compose.onNodeWithText("检查更新").assertExists()
-        compose.onNodeWithText("English").performClick()
-        compose.onNodeWithText("Settings").assertExists()
-        compose.onNodeWithText("Back").performClick()
+        compose.onNodeWithText("設定").assertExists()
+        compose.onNodeWithText("語言").assertExists()
+        compose.onNodeWithText("繁體中文（台灣）").assertExists()
+        compose.onNodeWithText("English").assertDoesNotExist()
+        compose.onNodeWithText("简体中文").assertDoesNotExist()
+        compose.onNodeWithText("檢查更新").assertExists()
+        compose.onNodeWithText("返回").performClick()
         assertTrue(back)
     }
     @Test fun unconfiguredUpdateServiceOffersOfficialWebsite() {
