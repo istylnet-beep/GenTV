@@ -322,18 +322,12 @@ public final class WallpaperGalleryActivity extends Activity {
             playableByCategory.put(id, list);
         }
 
-        // Render categories in strict order: 萌宠, 自然, 唯美, 图片, 随机.
-        String[] order = {"pets", "nature", "dreamy", "images", "shuffle"};
+        // Render wallpaper categories only; the Shuffle shelf has been removed.
+        String[] order = {"pets", "nature", "dreamy", "images"};
         for (String catId : order) {
             JSONObject group = byId.get(catId);
-            if ("shuffle".equals(catId)) {
-                group = buildShuffleGroup();
-            } else if (group == null) {
-                continue;
-            }
-            String shelfTitle = "shuffle".equals(catId)
-                    ? copy("隨機", "Shuffle")
-                    : title(group);
+            if (group == null) continue;
+            String shelfTitle = title(group);
             JSONArray items = visibleItems(group.optJSONArray("items"));
             if (items.length() == 0) continue;
             GalleryShelf model = new GalleryShelf(catId, shelfTitle, items);
