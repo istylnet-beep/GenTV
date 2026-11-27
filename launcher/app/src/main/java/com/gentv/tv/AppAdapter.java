@@ -360,13 +360,6 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             if (ca != cb) return ca ? -1 : 1;
             return a.label.compareToIgnoreCase(b.label);
         });
-        // Retain the optional Default-home tile until dependent tile-ordering work is merged.
-        if (showHomeSettings
-                && pm.resolveActivity(new Intent(Settings.ACTION_HOME_SETTINGS), 0) != null) {
-            fresh.add(new Entry(Entry.HOME_SETTINGS, ctx.getString(R.string.home_settings),
-                    new ComponentName(ctx, HomeSettingsActivity.class), null,
-                    CompatApi.drawable(ctx, R.drawable.ic_home_settings), null, 0));
-        }
         overflowItems.clear();
         if(moreAppsEnabled && MoreApps.hasOverflow(fresh.size())) {
             overflowItems.addAll(fresh.subList(MoreApps.HOME_LIMIT,fresh.size()));
@@ -604,11 +597,6 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
         if (e.kind == Entry.SOURCE) {
             if (ctx instanceof MainActivity) ((MainActivity)ctx).openPinnedInput(e.inputId);
-            return;
-        }
-        if (e.kind == Entry.HOME_SETTINGS) {
-            ctx.startActivity(new Intent(ctx, HomeSettingsActivity.class)
-                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             return;
         }
         TvMetrics.action(ctx, "launch_app");
