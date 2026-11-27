@@ -72,8 +72,8 @@ fun CheckScreen(
         },
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Title("电视诊断", Modifier.weight(1f))
-            MoreInfo("电视诊断") {
+            Title("電視診斷", Modifier.weight(1f))
+            MoreInfo("電視診斷") {
                 Body("TV updates sometimes switch apps back on. This checks your TV against what GenTV turned off.", color = GenTVPalette.Ink)
                 Body("Restarting checks that everything stays off after a reboot. It takes about 2 minutes.", color = GenTVPalette.Ink)
             }

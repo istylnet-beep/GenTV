@@ -20,40 +20,37 @@ import org.robolectric.annotation.GraphicsMode
 class SettingsScreenTest {
     @get:org.junit.Rule val configuredApi = ConfiguredApi()
     @get:Rule val compose = createComposeRule()
-    @Test fun languageChangesImmediatelyAndSettingsCanGoBack() {
-        var selected = AppLanguage.ENGLISH
+    @Test fun settingsExposeOnlyTaiwanTraditionalChineseAndCanGoBack() {
         var back = false
         compose.setContent {
-            var language by remember { mutableStateOf(AppLanguage.ENGLISH) }
-            CompositionLocalProvider(LocalAppLanguage provides language, LocalChangeLanguage provides { selected = it; language = it }) {
+            CompositionLocalProvider(LocalAppLanguage provides AppLanguage.TRADITIONAL_CHINESE) {
                 GenTVTheme { SettingsScreen(UpdateStatus.Idle, { back = true }, {}, {}) }
             }
         }
-        compose.onNodeWithText("Settings").assertExists()
-        compose.onNodeWithText("简体中文").performClick()
-        assertEquals(AppLanguage.CHINESE, selected)
-        compose.onNodeWithText("设置").assertExists()
-        compose.onNodeWithText("检查更新").assertExists()
-        compose.onNodeWithText("English").performClick()
-        compose.onNodeWithText("Settings").assertExists()
-        compose.onNodeWithText("Back").performClick()
+        compose.onNodeWithText("設定").assertExists()
+        compose.onNodeWithText("語言").assertExists()
+        compose.onNodeWithText("繁體中文（台灣）").assertExists()
+        compose.onNodeWithText("English").assertDoesNotExist()
+        compose.onNodeWithText("简体中文").assertDoesNotExist()
+        compose.onNodeWithText("檢查更新").assertExists()
+        compose.onNodeWithText("返回").performClick()
         assertTrue(back)
     }
     @Test fun unconfiguredUpdateServiceOffersOfficialWebsite() {
         var website: String? = null
         compose.setContent { GenTVTheme { SettingsScreen(UpdateStatus.Unconfigured, {}, {}, { website = it }) } }
-        compose.onNodeWithText("Automatic update service is not configured yet. Visit the official website for downloads.").performScrollTo().assertExists()
-        compose.onNodeWithText("Official website").performScrollTo().performClick()
+        compose.onNodeWithText("自動更新服務尚未設定，請前往官方網站下載更新。").performScrollTo().assertExists()
+        compose.onNodeWithText("官方網站").performScrollTo().performClick()
         assertEquals(BuildConfig.DOWNLOAD_URL, website)
     }
     @Test fun checkingDisablesDuplicateRequests() {
         compose.setContent { GenTVTheme { SettingsScreen(UpdateStatus.Checking, {}, {}, {}) } }
-        compose.onNodeWithText("Checking for updates…").performScrollTo().assertIsNotEnabled()
+        compose.onNodeWithText("正在檢查更新…").performScrollTo().assertIsNotEnabled()
     }
     @Test fun feedbackOpensFromSettings() {
         var opened = false
         compose.setContent { GenTVTheme { SettingsScreen(UpdateStatus.Idle, {}, {}, {}, onFeedback = { opened = true }) } }
-        compose.onNodeWithText("Feedback").performScrollTo().performClick()
+        compose.onNodeWithText("意見回饋").performScrollTo().performClick()
         assertTrue(opened)
     }
 
@@ -76,7 +73,7 @@ class SettingsScreenTest {
         var downloaded = false
         var website = false
         compose.setContent { GenTVTheme { SettingsScreen(UpdateStatus.Available(info), {}, {}, { website = true }, onDownloadUpdate = { downloaded = it == info }) } }
-        compose.onNodeWithText("Download update").performScrollTo().performClick()
+        compose.onNodeWithText("下載更新").performScrollTo().performClick()
         assertTrue(downloaded); assertFalse(website)
     }
 

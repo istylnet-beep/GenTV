@@ -89,10 +89,11 @@ fun IconBadge(icon: ImageVector, color: Color, size: Dp = 36.dp, tint: Color = c
 @Composable
 fun MoreInfo(title: String, link: String? = null, color: Color = GenTVPalette.Blue, content: @Composable ColumnScope.() -> Unit) {
     var open by rememberSaveable { mutableStateOf(false) }
+    val language = LocalAppLanguage.current
     if (link == null) {
         Box(
             Modifier.size(44.dp).clip(CircleShape).clickable(role = Role.Button) { open = true }
-                .semantics { contentDescription = "More about $title" },
+                .semantics { contentDescription = AppCopy.translate("More about $title", language) },
             contentAlignment = Alignment.Center,
         ) { Icon(Icons.Rounded.Info, null, Modifier.size(24.dp), tint = color) }
     } else {
@@ -162,7 +163,7 @@ fun ChoiceCard(
                         .padding(horizontal = 8.dp, vertical = 2.dp),
                 )
             }
-            if (selected) Icon(Icons.Rounded.CheckCircle, "Selected", Modifier.size(28.dp), tint = GenTVPalette.Blue)
+            if (selected) Icon(Icons.Rounded.CheckCircle, "已選取", Modifier.size(28.dp), tint = GenTVPalette.Blue)
         }
     }
 }

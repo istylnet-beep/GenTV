@@ -24,10 +24,9 @@ class Store(private val root: File) {
     private val json = Json { ignoreUnknownKeys = true; prettyPrint = true }
 
     private val languageFile = File(root, "language.txt")
-    fun language(): String = runCatching { languageFile.readText().trim() }.getOrNull()
-        ?.takeIf { it == "en" || it == "zh" } ?: "en"
+    fun language(): String = "zh-TW"
     fun saveLanguage(code: String) {
-        require(code == "en" || code == "zh")
+        require(code == "zh-TW")
         languageFile.parentFile?.mkdirs()
         val temporary = File(languageFile.path + ".tmp")
         temporary.writeText(code)

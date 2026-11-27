@@ -82,7 +82,7 @@ fun SendFilesScreen(
     CompanionScreen("应用投送", tvName, 3, onNavigate, showTitle = false) {
         if (remote.reconnecting) CompanionCard {
             LinearProgressIndicator(Modifier.fillMaxWidth())
-            Text("正在重新连接电视…", color = CompanionColors.Secondary)
+            Text("正在重新連線電視…", color = CompanionColors.Secondary)
         }
         remote.message?.let { message -> CompanionCard {
             Text(message, color = CompanionColors.Error)
@@ -108,12 +108,12 @@ fun SendFilesScreen(
                 }
             }
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
-                Text("可启动应用  ${remote.apps.size} 款", color = CompanionColors.Text, fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
-                TextButton(onManage) { Text("应用管理", fontSize = 12.sp) }
+                Text("可啟動的應用程式：${remote.apps.size} 個", color = CompanionColors.Text, fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
+                TextButton(onManage) { Text("應用程式管理", fontSize = 12.sp) }
             }
             when {
-                remote.loadingApps -> CompanionCard { LinearProgressIndicator(Modifier.fillMaxWidth()); Text("正在读取电视应用…", color = CompanionColors.Secondary, fontSize = 13.sp) }
-                remote.apps.isEmpty() -> CompanionCard { Text("暂未读取到可启动应用", color = CompanionColors.Secondary); TextButton(onRefresh) { Text("重新读取") } }
+                remote.loadingApps -> CompanionCard { LinearProgressIndicator(Modifier.fillMaxWidth()); Text("正在讀取電視上的應用程式…", color = CompanionColors.Secondary, fontSize = 13.sp) }
+                remote.apps.isEmpty() -> CompanionCard { Text("尚未讀取到可啟動的應用程式", color = CompanionColors.Secondary); TextButton(onRefresh) { Text("重新讀取") } }
                 else -> remote.apps.chunked(3).forEach { row ->
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         row.forEach { app ->
@@ -131,8 +131,8 @@ fun SendFilesScreen(
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     Icon(GenIcons.Send, null, Modifier.size(28.dp), tint = CompanionColors.Blue)
                     Column(Modifier.weight(1f)) {
-                        Text("隔空发送 APK", color = CompanionColors.Text, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
-                        Text("仅传输文件，不会自动安装", color = CompanionColors.Secondary, fontSize = 11.sp)
+                        Text("透過區域網路傳送 APK", color = CompanionColors.Text, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+                        Text("僅傳送檔案，不會自動安裝", color = CompanionColors.Secondary, fontSize = 11.sp)
                     }
                     CompanionButton("选择 APK", { picker.launch(arrayOf("application/vnd.android.package-archive")) }, primary = true)
                 }
@@ -143,32 +143,32 @@ fun SendFilesScreen(
                     Box(Modifier.size(68.dp).background(CompanionColors.Blue.copy(alpha = .1f), CircleShape), contentAlignment = Alignment.Center) {
                         Icon(Icons.Outlined.Sensors, null, Modifier.size(36.dp), tint = CompanionColors.Blue)
                     }
-                    Text("点选文件，投送至电视", color = CompanionColors.Text, fontSize = 19.sp, fontWeight = FontWeight.SemiBold)
-                    Text("通过当前局域网连接传输照片、视频和安装包", color = CompanionColors.Secondary, fontSize = 13.sp, textAlign = TextAlign.Center)
-                    Text("保存到 Downloads › GenTV", color = CompanionColors.Blue, fontSize = 12.sp)
+                    Text("點選檔案，傳送至電視", color = CompanionColors.Text, fontSize = 19.sp, fontWeight = FontWeight.SemiBold)
+                    Text("透過目前的區域網路連線傳送照片、影片及安裝檔", color = CompanionColors.Secondary, fontSize = 13.sp, textAlign = TextAlign.Center)
+                    Text("儲存至 Downloads › GenTV", color = CompanionColors.Blue, fontSize = 12.sp)
                 }
             }
             Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                TransferKind("发送相册", Icons.Outlined.Image, Modifier.weight(1f)) { picker.launch(arrayOf("image/*")) }
-                TransferKind("发送视频", Icons.Outlined.Movie, Modifier.weight(1f)) { picker.launch(arrayOf("video/*")) }
+                TransferKind("傳送相册", Icons.Outlined.Image, Modifier.weight(1f)) { picker.launch(arrayOf("image/*")) }
+                TransferKind("傳送视频", Icons.Outlined.Movie, Modifier.weight(1f)) { picker.launch(arrayOf("video/*")) }
                 TransferKind("APK 安装包", Icons.Outlined.Android, Modifier.weight(1f)) { picker.launch(arrayOf("application/vnd.android.package-archive")) }
                 TransferKind("文本输入", Icons.Outlined.ContentPaste, Modifier.weight(1f)) { text = clipboard.getText()?.text.orEmpty(); textDialog = true }
             }
-            s.freeBytes?.let { Text("电视可用空间 ${formatBytes(it)}", color = CompanionColors.Muted, fontSize = 12.sp) }
+            s.freeBytes?.let { Text("電視可用空間 ${formatBytes(it)}", color = CompanionColors.Muted, fontSize = 12.sp) }
         }
         if (!appsTab || s.items.isNotEmpty()) {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                Text("传输队列与历史", color = CompanionColors.Text, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+                Text("傳送佇列與歷史紀錄", color = CompanionColors.Text, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
                 TextButton({ hiddenHistory = s.items.filter { it.status == SendStatus.SENT || it.status == SendStatus.CANCELLED }.map { it.id } },
-                    enabled = s.items.any { it.status == SendStatus.SENT || it.status == SendStatus.CANCELLED }) { Text("清除记录", fontSize = 12.sp) }
+                    enabled = s.items.any { it.status == SendStatus.SENT || it.status == SendStatus.CANCELLED }) { Text("清除記錄", fontSize = 12.sp) }
             }
             val visible = s.items.filter { it.id !in hiddenHistory }
-            if (visible.isEmpty()) CompanionCard { Text("暂无传输记录", color = CompanionColors.Muted, fontSize = 13.sp) }
+            if (visible.isEmpty()) CompanionCard { Text("目前沒有傳送記錄", color = CompanionColors.Muted, fontSize = 13.sp) }
             visible.forEach { item -> TransferRow(item, onCancel, onRetry) }
         }
-        if (textDialog) AlertDialog(onDismissRequest = { textDialog = false }, title = { Text("输入到电视") }, text = {
-            OutlinedTextField(text, { text = it }, label = { Text("电视当前输入框中的文字") }, supportingText = { Text("请先在电视上选中输入框。") })
-        }, confirmButton = { TextButton({ onType(text); textDialog = false }, enabled = text.isNotBlank()) { Text("发送") } }, dismissButton = { TextButton({ textDialog = false }) { Text("取消") } })
+        if (textDialog) AlertDialog(onDismissRequest = { textDialog = false }, title = { Text("輸入至電視") }, text = {
+            OutlinedTextField(text, { text = it }, label = { Text("電視目前輸入欄位中的文字") }, supportingText = { Text("請先在電視上選取輸入欄位。") })
+        }, confirmButton = { TextButton({ onType(text); textDialog = false }, enabled = text.isNotBlank()) { Text("傳送") } }, dismissButton = { TextButton({ textDialog = false }) { Text("取消") } })
     }
 }
 
@@ -191,8 +191,8 @@ private fun TransferRow(item: SendItem, onCancel: (Int) -> Unit, onRetry: (Int) 
             }
             when (item.status) {
                 SendStatus.WAITING -> TextButton({ onCancel(item.id) }) { Text("取消") }
-                SendStatus.FAILED, SendStatus.NO_SPACE -> TextButton({ onRetry(item.id) }) { Text("重试") }
-                SendStatus.SENT -> Icon(Icons.Outlined.CheckCircle, "已发送", tint = CompanionColors.Green)
+                SendStatus.FAILED, SendStatus.NO_SPACE -> TextButton({ onRetry(item.id) }) { Text("重試") }
+                SendStatus.SENT -> Icon(Icons.Outlined.CheckCircle, "已傳送", tint = CompanionColors.Green)
                 else -> Unit
             }
         }
@@ -201,11 +201,11 @@ private fun TransferRow(item: SendItem, onCancel: (Int) -> Unit, onRetry: (Int) 
                 LinearProgressIndicator(progress = { if (item.size > 0) (item.sent.toFloat() / item.size).coerceIn(0f, 1f) else 0f }, modifier = Modifier.fillMaxWidth())
                 Text("${formatBytes(item.sent)} / ${formatBytes(item.size)}", fontSize = 11.sp, color = CompanionColors.Blue)
             }
-            SendStatus.SENT -> Text("已保存：${item.savedAs ?: item.name}", color = CompanionColors.Green, fontSize = 11.sp)
-            SendStatus.WAITING -> Text("等待发送", color = CompanionColors.Muted, fontSize = 11.sp)
+            SendStatus.SENT -> Text("已儲存：${item.savedAs ?: item.name}", color = CompanionColors.Green, fontSize = 11.sp)
+            SendStatus.WAITING -> Text("等待傳送", color = CompanionColors.Muted, fontSize = 11.sp)
             SendStatus.CANCELLED -> Text("已取消", color = CompanionColors.Muted, fontSize = 11.sp)
-            SendStatus.NO_SPACE -> Text("电视空间不足，请清理后重试", color = CompanionColors.Error, fontSize = 12.sp)
-            SendStatus.FAILED -> Text("发送失败，请确认电视连接后重试", color = CompanionColors.Error, fontSize = 12.sp)
+            SendStatus.NO_SPACE -> Text("电视空间不足，请清理后重試", color = CompanionColors.Error, fontSize = 12.sp)
+            SendStatus.FAILED -> Text("傳送失败，请确认电视连接后重試", color = CompanionColors.Error, fontSize = 12.sp)
         }
     }
 }

@@ -122,11 +122,11 @@ fun Bubble(text: String, color: Color = GenTVPalette.BlueSoft, textColor: Color 
 
 /** Screen moods; each currently shows the GenTV symbol. */
 enum class Mood(val res: Int, val description: String) {
-    STAND(com.gentv.mobile.R.drawable.ic_gentv, "GenTV television symbol"),
-    SEARCH(com.gentv.mobile.R.drawable.ic_gentv, "GenTV checking a television"),
-    HAPPY(com.gentv.mobile.R.drawable.ic_gentv, "GenTV ready"),
-    CHEER(com.gentv.mobile.R.drawable.ic_gentv, "GenTV completed"),
-    WORRIED(com.gentv.mobile.R.drawable.ic_gentv, "GenTV needs attention"),
+    STAND(com.gentv.mobile.R.drawable.ic_gentv, "GenTV 電視圖示"),
+    SEARCH(com.gentv.mobile.R.drawable.ic_gentv, "GenTV 正在檢查電視"),
+    HAPPY(com.gentv.mobile.R.drawable.ic_gentv, "GenTV 已就緒"),
+    CHEER(com.gentv.mobile.R.drawable.ic_gentv, "GenTV 已完成"),
+    WORRIED(com.gentv.mobile.R.drawable.ic_gentv, "GenTV 需要注意"),
 }
 
 /** The mascot at the top of a screen, gently bobbing. */

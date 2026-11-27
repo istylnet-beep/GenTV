@@ -15,42 +15,38 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 
-enum class AppLanguage(val code: String) { ENGLISH("en"), CHINESE("zh");
-    companion object { fun from(code: String?) = entries.firstOrNull { it.code == code } ?: ENGLISH }
+enum class AppLanguage(val code: String) {
+    TRADITIONAL_CHINESE("zh-TW");
+    companion object { fun from(code: String?) = TRADITIONAL_CHINESE }
 }
 
-val LocalAppLanguage = staticCompositionLocalOf { AppLanguage.ENGLISH }
+val LocalAppLanguage = staticCompositionLocalOf { AppLanguage.TRADITIONAL_CHINESE }
 val LocalChangeLanguage = staticCompositionLocalOf<(AppLanguage) -> Unit> { {} }
 
 /** Legacy screen copy is centralized here; device names, user input and reports bypass this adapter. */
 object AppCopy {
     private val entries by lazy { translationEntries() }
-    private val english by lazy { entries.asReversed().associate { it.second to it.first } }
     private val chinese by lazy { entries.associate { it.first to it.second } }
     private data class Template(val pattern: Regex, val replacement: String)
-    private fun patterns(reverse: Boolean): List<Template> = entries.mapNotNull { (en, zh) ->
-        val source = if (reverse) zh else en
-        val target = if (reverse) en else zh
-        if (!source.contains("{0}")) return@mapNotNull null
-        val tokens = Regex("\\{(\\d+)\\}").findAll(source).toList()
-        var position = 0
-        val pattern = buildString {
-            append("^")
-            for (token in tokens) {
-                append(Regex.escape(source.substring(position, token.range.first)))
-                append("(.+?)")
-                position = token.range.last + 1
+    private val templates by lazy {
+        entries.mapNotNull { (english, traditional) ->
+            if (!english.contains("{0}")) return@mapNotNull null
+            val tokens = Regex("\\{(\\d+)\\}").findAll(english).toList()
+            var position = 0
+            val pattern = buildString {
+                append("^")
+                for (token in tokens) {
+                    append(Regex.escape(english.substring(position, token.range.first)))
+                    append("(.+?)")
+                    position = token.range.last + 1
+                }
+                append(Regex.escape(english.substring(position))); append("$")
             }
-            append(Regex.escape(source.substring(position))); append("$")
+            Template(Regex(pattern, RegexOption.DOT_MATCHES_ALL), traditional)
         }
-        Template(Regex(pattern, RegexOption.DOT_MATCHES_ALL), target)
     }
-    private val toEnglish by lazy { patterns(true) }
-    private val toChinese by lazy { patterns(false) }
     fun translate(text: String, language: AppLanguage): String {
-        val direct = if (language == AppLanguage.ENGLISH) english else chinese
-        direct[text]?.let { return it }
-        val templates = if (language == AppLanguage.ENGLISH) toEnglish else toChinese
+        chinese[text]?.let { return it }
         for (template in templates) {
             val match = template.pattern.matchEntire(text) ?: continue
             return Regex("\\{(\\d+)\\}").replace(template.replacement) { token ->

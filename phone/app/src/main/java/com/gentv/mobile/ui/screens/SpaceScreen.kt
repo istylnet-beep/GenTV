@@ -53,7 +53,7 @@ fun SpaceScreen(s: SpaceState, tvName: String?, labels: Map<String, String>, onC
         },
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Title("空间深度清理", Modifier.weight(1f))
+            Title("儲存空間深度清理", Modifier.weight(1f))
             MoreInfo("Caches") {
                 Body("Caches are temporary files apps keep to load faster. Clearing them is safe: apps rebuild what they need. Your sign-ins, settings and downloads stay.", color = GenTVPalette.Ink)
             }
@@ -62,14 +62,14 @@ fun SpaceScreen(s: SpaceState, tvName: String?, labels: Map<String, String>, onC
             Row(Modifier.padding(vertical = 16.dp), verticalAlignment = Alignment.CenterVertically) {
                 Spinner(26.dp)
                 Spacer(Modifier.width(12.dp))
-                Text("正在读取电视存储…", style = MaterialTheme.typography.bodyLarge, color = GenTVPalette.Muted)
+                Text("正在讀取電視儲存空間…", style = MaterialTheme.typography.bodyLarge, color = GenTVPalette.Muted)
             }
         }
         s.message?.let { if (it.ok) SafetyBanner(it.message) else Note(it.message, color = GenTVPalette.RedSoft, textColor = GenTVPalette.Red) }
         val st = s.storage
         if (!s.loading && st == null) CardBox {
-            Body("暂未取得存储信息。请确认电视连接正常后重试。")
-            com.gentv.mobile.ui.TextLink("重新读取存储", onRetry)
+            Body("暫時無法取得儲存資訊。請確認電視連線正常後再試一次。")
+            com.gentv.mobile.ui.TextLink("重新讀取儲存空間", onRetry)
         }
         if (!s.loading && st != null) {
             CardBox(color = GenTVPalette.BlueSoft) {
@@ -81,8 +81,8 @@ fun SpaceScreen(s: SpaceState, tvName: String?, labels: Map<String, String>, onC
                         modifier = Modifier.fillMaxWidth().height(12.dp).clip(RoundedCornerShape(99.dp)),
                         color = GenTVPalette.Blue, trackColor = GenTVPalette.Grey,
                     )
-                    Text("可用 ${gb(free)} GB / 总容量 ${gb(total)} GB", style = MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink, modifier = Modifier.padding(top = 10.dp))
-                } else Text("暂时无法读取存储容量", style = MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink)
+                    Text("可用容量 ${gb(free)} GB / 總容量 ${gb(total)} GB", style = MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink, modifier = Modifier.padding(top = 10.dp))
+                } else Text("暫時無法讀取儲存容量", style = MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink)
                 Row(Modifier.padding(top = 10.dp)) {
                     // Android counts app caches only about once a day, so before a clear this is an estimate.
                     InfoChip(Icons.Rounded.Storage, if (s.estimated) "缓存约 ${st.cacheMb} MB" else "缓存已清理", color = GenTVPalette.Grey, textColor = GenTVPalette.Ink)
@@ -91,7 +91,7 @@ fun SpaceScreen(s: SpaceState, tvName: String?, labels: Map<String, String>, onC
             }
         }
         if (!s.loading && s.topCache.isNotEmpty()) Outline {
-            Text("应用缓存排行", style = MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink)
+            Text("應用程式快取排行", style = MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink)
             Text("As of Android's last count, which it refreshes about once a day.", style = MaterialTheme.typography.bodyMedium, color = GenTVPalette.Muted)
             Column(Modifier.padding(top = 8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 for ((pkg, mb) in s.topCache) {

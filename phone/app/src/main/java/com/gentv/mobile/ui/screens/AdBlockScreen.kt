@@ -42,18 +42,18 @@ fun AdBlockScreen(
 ) {
     val on = s.dns?.provider
     ScreenFrame(
-        top = { TopBar("返回首页", onBack, tvName) },
+        top = { TopBar("返回首頁", onBack, tvName) },
         bottom = {
             if (!s.loading && s.supported) {
-                if (on != null) BigButton(if (s.busy) "Turning off…" else "关闭广告过滤", onUnblock, color = GenTVPalette.Grey, textColor = GenTVPalette.Ink, enabled = !s.busy && s.dns != null)
+                if (on != null) BigButton(if (s.busy) "Turning off…" else "關閉廣告封鎖", onUnblock, color = GenTVPalette.Grey, textColor = GenTVPalette.Ink, enabled = !s.busy && s.dns != null)
                 else BigButton(if (s.busy) "Turning on…" else "Block ads and trackers", { onBlock(AdBlockProvider.ADS, false) }, color = GenTVPalette.Green, enabled = !s.busy && s.dns != null)
             }
         },
     ) {
-        Title("广告过滤")
+        Title("廣告封鎖")
         if (s.loading) Row(Modifier.padding(vertical = 16.dp), verticalAlignment = Alignment.CenterVertically) {
             Spinner(26.dp); Spacer(Modifier.width(12.dp))
-            Text("正在检查电视…", style = MaterialTheme.typography.bodyLarge, color = GenTVPalette.Muted)
+            Text("正在檢查電視…", style = MaterialTheme.typography.bodyLarge, color = GenTVPalette.Muted)
         }
         s.message?.let { if (it.ok) SafetyBanner(it.message) else Note(it.message, color = GenTVPalette.RedSoft, textColor = GenTVPalette.Red) }
         if (!s.supported) {
@@ -61,9 +61,9 @@ fun AdBlockScreen(
             return@ScreenFrame
         }
         if (s.loading) return@ScreenFrame
-        if (s.dns == null) com.gentv.mobile.ui.TextLink("重新读取设置", onRetry)
-        if (on != null) SafetyBanner("Ad blocking is on (${on.blurb}).")
-        if (s.dns?.someoneElses == true) Note("This TV already uses its own Private DNS (${s.dns.host}). Turning this on replaces it, and turning it off puts it back.")
+        if (s.dns == null) com.gentv.mobile.ui.TextLink("重新讀取設定", onRetry)
+        if (on != null) SafetyBanner(com.gentv.mobile.ui.AppCopy.translate("Ad blocking is on ({0}).", com.gentv.mobile.ui.LocalAppLanguage.current).replace("{0}", com.gentv.mobile.ui.AppCopy.translate(on.blurb, com.gentv.mobile.ui.LocalAppLanguage.current)))
+        if (s.dns?.someoneElses == true) Note(com.gentv.mobile.ui.AppCopy.translate("This TV already uses its own Private DNS ({0}). Turning this on replaces it, and turning it off puts it back.", com.gentv.mobile.ui.LocalAppLanguage.current).replace("{0}", s.dns?.host.orEmpty()))
         s.confirmReplace?.let { p ->
             Outline {
                 Text("Replace the DNS this TV already uses?", style = MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink)
@@ -74,13 +74,13 @@ fun AdBlockScreen(
             }
         }
         CardBox(color = GenTVPalette.GreenSoft) {
-            Text("可过滤的内容", style = MaterialTheme.typography.titleMedium, color = GenTVPalette.GreenInk)
+            Text("可封鎖的內容", style = MaterialTheme.typography.titleMedium, color = GenTVPalette.GreenInk)
             Column(Modifier.padding(top = 6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 AdBlockInfo.BLOCKS.forEach { Text("✓  $it", style = MaterialTheme.typography.bodyLarge, color = GenTVPalette.Ink) }
             }
         }
         CardBox(color = GenTVPalette.Amber) {
-            Text("无法过滤的内容", style = MaterialTheme.typography.titleMedium, color = GenTVPalette.AmberInk)
+            Text("無法封鎖的內容", style = MaterialTheme.typography.titleMedium, color = GenTVPalette.AmberInk)
             Column(Modifier.padding(top = 6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 AdBlockInfo.DOES_NOT_BLOCK.forEach { Text("✗  $it", style = MaterialTheme.typography.bodyLarge, color = GenTVPalette.Ink) }
             }

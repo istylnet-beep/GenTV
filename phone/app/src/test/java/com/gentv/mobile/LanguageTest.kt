@@ -10,22 +10,23 @@ import org.junit.rules.TemporaryFolder
 
 class LanguageTest {
     @get:Rule val tmp = TemporaryFolder()
-    @Test fun freshInstallUsesEnglishAndChoiceSurvivesRestart() {
-        assertEquals("en", Store(tmp.root).language())
-        Store(tmp.root).saveLanguage("zh")
-        assertEquals("zh", Store(tmp.root).language())
-        Store(tmp.root).saveLanguage("en")
-        assertEquals("en", Store(tmp.root).language())
+
+    @Test fun freshInstallAndLegacyPreferencesAlwaysUseTaiwanTraditionalChinese() {
+        assertEquals("zh-TW", Store(tmp.root).language())
+        for (legacy in listOf("en", "zh", "invalid")) {
+            java.io.File(tmp.root, "language.txt").writeText(legacy)
+            assertEquals("zh-TW", Store(tmp.root).language())
+            assertEquals(AppLanguage.TRADITIONAL_CHINESE, AppLanguage.from(legacy))
+        }
+        Store(tmp.root).saveLanguage("zh-TW")
+        assertEquals("zh-TW", Store(tmp.root).language())
     }
-    @Test fun invalidPreferenceFallsBackToEnglish() {
-        java.io.File(tmp.root, "language.txt").writeText("invalid")
-        assertEquals(AppLanguage.ENGLISH, AppLanguage.from(Store(tmp.root).language()))
-    }
-    @Test fun translationsKeepDynamicValuesAndTechnicalText() {
-        assertEquals("Apps", AppCopy.translate("应用管理", AppLanguage.ENGLISH))
-        assertEquals("设置", AppCopy.translate("Settings", AppLanguage.CHINESE))
-        assertEquals("4 disabled", AppCopy.translate("已停用 4 项", AppLanguage.ENGLISH))
-        assertEquals("可用 5.7 GB / 总容量 9.8 GB", AppCopy.translate("5.7 GB free / 9.8 GB total", AppLanguage.CHINESE))
-        assertEquals("com.example.player/.Main", AppCopy.translate("com.example.player/.Main", AppLanguage.CHINESE))
+
+    @Test fun translationsUseTaiwanTraditionalChineseAndKeepDynamicValues() {
+        assertEquals("應用程式管理", AppCopy.translate("Apps", AppLanguage.TRADITIONAL_CHINESE))
+        assertEquals("設定", AppCopy.translate("Settings", AppLanguage.TRADITIONAL_CHINESE))
+        assertEquals("已停用 4 項", AppCopy.translate("4 disabled", AppLanguage.TRADITIONAL_CHINESE))
+        assertEquals("可用 5.7 GB / 總容量 9.8 GB", AppCopy.translate("5.7 GB free / 9.8 GB total", AppLanguage.TRADITIONAL_CHINESE))
+        assertEquals("com.example.player/.Main", AppCopy.translate("com.example.player/.Main", AppLanguage.TRADITIONAL_CHINESE))
     }
 }

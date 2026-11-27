@@ -39,22 +39,22 @@ class HomeScreenTest {
         }
         compose.onNodeWithContentDescription("Settings").performClick()
         assertEquals("settings", chosen)
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("切换设备", com.gentv.mobile.ui.AppLanguage.ENGLISH)).performClick()
+        compose.onNodeWithText("切換裝置").performClick()
         assertEquals("devices", chosen)
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("已连接", com.gentv.mobile.ui.AppLanguage.ENGLISH)).assertDoesNotExist()
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("Android 14", com.gentv.mobile.ui.AppLanguage.ENGLISH)).assertDoesNotExist()
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("触控遥控中心", com.gentv.mobile.ui.AppLanguage.ENGLISH)).assertDoesNotExist()
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("遥控器", com.gentv.mobile.ui.AppLanguage.ENGLISH)).performClick()
+        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("已连接", com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE)).assertDoesNotExist()
+        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("Android 14", com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE)).assertDoesNotExist()
+        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("触控遥控中心", com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE)).assertDoesNotExist()
+        compose.onNodeWithText("遙控器").performClick()
         assertEquals("remote", chosen)
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("文件快传", com.gentv.mobile.ui.AppLanguage.ENGLISH)).performScrollTo().performClick()
+        compose.onNodeWithText("檔案快傳").performScrollTo().performClick()
         assertEquals("files", chosen)
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("桌面整理", com.gentv.mobile.ui.AppLanguage.ENGLISH)).performScrollTo().performClick()
+        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("桌面整理", com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE)).performScrollTo().performClick()
         assertEquals("desktop", chosen)
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("电视诊断", com.gentv.mobile.ui.AppLanguage.ENGLISH)).performScrollTo().performClick()
+        compose.onNodeWithText("電視診斷").performScrollTo().performClick()
         assertEquals("check", chosen)
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("配置还原", com.gentv.mobile.ui.AppLanguage.ENGLISH)).performScrollTo().performClick()
+        compose.onNodeWithText("設定還原").performScrollTo().performClick()
         assertEquals("restore", chosen)
-        compose.onNodeWithText(com.gentv.mobile.ui.AppCopy.translate("发现设备", com.gentv.mobile.ui.AppLanguage.ENGLISH)).performClick()
+        compose.onNodeWithText("發現裝置").performClick()
         assertEquals("devices", chosen)
     }
 
@@ -68,12 +68,12 @@ class HomeScreenTest {
                 )
             }
         }
-        compose.onNodeWithText("GenTV desktop").assertExists()
-        compose.onNodeWithContentDescription("GenTV desktop preview").assertExists()
+        compose.onNodeWithText("GenTV 桌面").assertExists()
+        compose.onNodeWithContentDescription("GenTV 電視桌面預覽").assertExists()
         compose.onNodeWithText("Simple").assertDoesNotExist()
         compose.onNodeWithText("compatible desktop").assertDoesNotExist()
         compose.onNodeWithText("Projectivy").assertDoesNotExist()
-        compose.onNodeWithText("Install GenTV desktop").performClick()
+        compose.onNodeWithText("安裝 GenTV 桌面").performClick()
         assertEquals(true, installed)
     }
 
@@ -88,35 +88,46 @@ class HomeScreenTest {
                 )
             }
         }
-        compose.onNodeWithText("Just preview it, keep my home screen").performClick()
+        compose.onNodeWithText("先預覽，保留目前主畫面").performClick()
         state = HomeState.GenTVResult(true)
         compose.waitForIdle()
-        compose.onNodeWithText("Is GenTV on your TV?").assertExists()
-        compose.onNodeWithText("Not now, keep my home screen").performClick()
-        compose.onNodeWithText("Yes, make GenTV my home screen").performClick()
+        compose.onNodeWithText("電視上已顯示 GenTV 了嗎？").assertExists()
+        compose.onNodeWithText("暫時不要，保留目前主畫面").performClick()
+        compose.onNodeWithText("是的，設為預設桌面").performClick()
         state = HomeState.GenTVResult(true, previewOnly = true)
         compose.waitForIdle()
-        compose.onNodeWithText("Yes, make GenTV my home screen").assertDoesNotExist()
-        compose.onNodeWithText("GenTV is open on your TV. Your home screen wasn't changed.").assertExists()
+        compose.onNodeWithText("是的，設為預設桌面").assertDoesNotExist()
+        compose.onNodeWithText("GenTV 已在電視上開啟，電視桌面未作更改。").assertExists()
         state = HomeState.Problem("Firmware kept Home.", worried = false, action = HomeAction.COMPAT_HANDOVER, installed = true)
         compose.waitForIdle()
-        compose.onNodeWithText("GenTV installed, Home not switched").assertExists()
-        compose.onNodeWithText("Turn off the old home screen and try").performClick()
+        compose.onNodeWithText("GenTV 已安裝，預設桌面未切換").assertExists()
+        compose.onNodeWithText("停用原桌面後再試").performClick()
         state = HomeState.Problem("Restart first.", worried = false, action = HomeAction.CONFIRM_REBOOT, installed = true)
         compose.waitForIdle()
-        compose.onNodeWithText("I restarted the TV, continue").performClick()
+        compose.onNodeWithText("已重啟電視，繼續").performClick()
         assertEquals(listOf("preview", "continue", "home", "COMPAT_HANDOVER", "CONFIRM_REBOOT"), calls)
     }
 
     @Test fun handoverCopyHasChineseTranslations() {
-        val zh = com.gentv.mobile.ui.AppLanguage.CHINESE
-        for (en in listOf(
-            "Just preview it, keep my home screen", "Is GenTV on your TV?", "Yes, make GenTV my home screen",
-            "Not now, keep my home screen", "GenTV installed, Home not switched", "Turn off the old home screen and try",
-            "I restarted the TV, continue",
-        )) assertTrue(en, com.gentv.mobile.ui.AppCopy.translate(en, zh) != en)
-        assertEquals("已停用（未卸载）：Google TV。恢复所有更改会重新启用它们，并把原桌面设回默认桌面。",
-            com.gentv.mobile.ui.AppCopy.translate("Turned off, never uninstalled: Google TV. Restore everything turns them back on and makes your original home screen Home again.", zh))
+        val zh = com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE
+        val expected = mapOf(
+            "Just preview it, keep my home screen" to "先預覽，保留目前主畫面",
+            "Not now, keep my home screen" to "暫時不要，保留目前主畫面",
+            "Yes, make GenTV my home screen" to "是的，設為預設桌面",
+            "GenTV desktop preview" to "GenTV 電視桌面預覽",
+            "Firmware kept Home." to "韌體仍保留原本的主畫面。",
+            "Restart first." to "請先重新啟動電視。",
+        )
+        expected.forEach { (source, translated) ->
+            assertEquals(source, translated, com.gentv.mobile.ui.AppCopy.translate(source, zh))
+        }
+        assertEquals(
+            "已停用（未解除安裝）：Google TV。恢復所有更改會重新啟用它們，並把原桌面設回預設桌面。",
+            com.gentv.mobile.ui.AppCopy.translate(
+                "Turned off, never uninstalled: Google TV. Restore everything turns them back on and makes your original home screen Home again.",
+                zh,
+            ),
+        )
     }
 
     @Test fun renderDarkHomepage() {

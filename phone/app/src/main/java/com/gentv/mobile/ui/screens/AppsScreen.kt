@@ -66,8 +66,8 @@ fun AppsScreen(
     var query by rememberSaveable { mutableStateOf("") }
     var pendingUninstall by rememberSaveable { mutableStateOf<String?>(null) }
     ScreenFrame(top = { TopBar("返回首页", onBack, tvName) }) {
-        Title("应用管理")
-        Body("管理电视应用，操作前会保存备份。停用和预装应用移除可以恢复；自行安装的应用永久卸载后，需要重新安装。", color = GenTVPalette.Muted)
+        Title("應用程式管理")
+        Body("管理電視上的應用程式，操作前會先建立備份。停用應用程式及移除預裝應用程式都可以還原；自行安裝的應用程式若永久解除安裝，則需要重新安裝。", color = GenTVPalette.Muted)
         s.message?.let { if (it.ok) SafetyBanner(it.message) else Note(it.message, color = GenTVPalette.RedSoft, textColor = GenTVPalette.Red) }
         if (s.loading) {
             Row(Modifier.padding(vertical = 16.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -77,8 +77,8 @@ fun AppsScreen(
             return@ScreenFrame
         }
         if (s.rows.isEmpty()) {
-            Body("暂未读取到电视应用。请确认电视连接正常后重试。")
-            com.gentv.mobile.ui.TextLink("重新读取应用", onReload)
+            Body("尚未讀取到電視上的應用程式。請確認電視連線正常後再試一次。")
+            com.gentv.mobile.ui.TextLink("重新讀取應用程式", onReload)
             return@ScreenFrame
         }
         OutlinedTextField(
@@ -93,7 +93,7 @@ fun AppsScreen(
         val sections = AllAppsView.sections(AllAppsView.search(s.rows, query), s.facts)
         if (sections.isEmpty()) Body("No apps match \"${query.trim()}\".")
         for (sec in sections) {
-            Text("${sec.title} (${sec.size})", style = MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink, modifier = Modifier.padding(top = 4.dp))
+            Text("${com.gentv.mobile.ui.AppCopy.translate(sec.title, com.gentv.mobile.ui.LocalAppLanguage.current)} (${sec.size})", style = MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink, modifier = Modifier.padding(top = 4.dp))
             for (row in sec.all) AppLine(row, labels[row.pkg] ?: row.label, s.busy == row.pkg, enabled = s.busy == null) { onOpen(row.pkg) }
         }
     }
@@ -105,7 +105,7 @@ fun AppsScreen(
             onDismissRequest = { pendingUninstall = null },
             title = { Text(if (row.tier == Tier.YOURS) "永久卸载应用？" else "从此电视移除应用？") },
             text = { Text(if (row.tier == Tier.YOURS) "${labels[pkg] ?: row.label} 将被永久卸载，恢复功能无法找回，需要重新安装。" else "${labels[pkg] ?: row.label} 将从此电视移除，可以通过恢复功能找回。") },
-            confirmButton = { androidx.compose.material3.TextButton({ pendingUninstall = null; onUninstall(pkg) }, enabled = s.busy == null) { Text("确认卸载", color = GenTVPalette.Red) } },
+            confirmButton = { androidx.compose.material3.TextButton({ pendingUninstall = null; onUninstall(pkg) }, enabled = s.busy == null) { Text("確認解除安裝", color = GenTVPalette.Red) } },
             dismissButton = { androidx.compose.material3.TextButton({ pendingUninstall = null }) { Text("取消") } },
         )
     }

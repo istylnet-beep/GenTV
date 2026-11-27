@@ -123,7 +123,7 @@ fun ReviewScreen(
             )
         }
     }) {
-        Title("应用精简")
+        Title("應用程式精簡")
         if (s.backup != BackupStatus.Saved) { BackupHeader(s.backup, onRetryBackup); return@ScreenFrame }
         if (s.noList) {
             BackupHeader(s.backup, onRetryBackup)
@@ -181,7 +181,7 @@ private fun FewFoundCard(count: Int, onShowMore: () -> Unit) {
             style = MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink,
         )
         Spacer(Modifier.heightIn(min = 10.dp))
-        BigButton("查看更多应用", onShowMore, color = GenTVPalette.Grey, textColor = GenTVPalette.Ink)
+        BigButton("查看更多應用程式", onShowMore, color = GenTVPalette.Grey, textColor = GenTVPalette.Ink)
     }
 }
 
@@ -194,7 +194,7 @@ private fun MoreAppsCard(apps: List<Candidate>, selected: Set<String>, onToggleA
             IconBadge(Icons.Rounded.AddCircle, GenTVPalette.Blue)
             Spacer(Modifier.width(12.dp))
             Column(Modifier.weight(1f)) {
-                Text("More apps (${apps.size})", style = MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink)
+                Text(com.gentv.mobile.ui.AppCopy.translate("More apps ({0})", com.gentv.mobile.ui.LocalAppLanguage.current).replace("{0}", apps.size.toString()), style = MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink)
                 Text("From other TVs' lists", style = MaterialTheme.typography.labelMedium, color = GenTVPalette.Muted)
             }
             MoreInfo("More apps") {
@@ -230,7 +230,7 @@ private fun GroupCard(group: Group, apps: List<Candidate>, selected: Set<String>
         Row(verticalAlignment = Alignment.CenterVertically) {
             IconBadge(icon, color)
             Spacer(Modifier.width(12.dp))
-            Text("${group.title} (${apps.size})", style = MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink, modifier = Modifier.weight(1f))
+            Text("${com.gentv.mobile.ui.AppCopy.translate(group.title, com.gentv.mobile.ui.LocalAppLanguage.current)} (${apps.size})", style = MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink, modifier = Modifier.weight(1f))
             Toggle(on > 0, { onToggleGroup(group, it) }, group.title)
         }
         group.warning()?.let { w ->
