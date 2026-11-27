@@ -25,22 +25,12 @@ fun SettingsScreen(update: UpdateStatus, onBack: () -> Unit, onCheck: () -> Unit
     if (privacy) AlertDialog(onDismissRequest = { privacy = false }, title = { Text("Privacy and data") },
         text = { Column(Modifier.heightIn(max = 360.dp).verticalScroll(androidx.compose.foundation.rememberScrollState())) { Text("Off by default; enable again for this revised collection. Sends the local factory MAC when accessible, a random installation ID, fixed pages/actions, version, sessions and foreground time. The server deduplicates by a keyed MAC hash, falling back to installation ID, and does not store or display raw MACs. No app names or input text. A MAC can link reinstalls. Disabling clears pending events and resets the installation ID, but does not remove historical links. Mark physical test devices as test traffic. When enabled, Android SDK is also sent. Upgrades preserve the statistics ID; disabling statistics, clearing data or reinstalling resets it. An explicit choice to disable statistics is preserved across upgrades. Feedback is sent only when you submit it and can include your message, email, phone model, Android version, random install ID and attachments you choose. TV connection keys, backups and operation history stay on this phone unless you choose to share a report. Shared reports are redacted before export. Turning statistics off clears unsent events; already sent data cannot be recalled by this app. For information about server retention and remote-data deletion requests, contact GenTV through the official website. Keep your TV restore records before clearing app data.") } },
         confirmButton = { TextButton(onClick = { privacy = false }) { Text("Close") } })
-    val language = LocalAppLanguage.current
-    val changeLanguage = LocalChangeLanguage.current
     ScreenFrame(top = { TopBar("Back", onBack, null, showSettings = false) }) {
         Title("Settings")
         CardBox {
-            Text("Language", style = MaterialTheme.typography.titleLarge, color = GenTVPalette.Ink)
+            Text("語言", style = MaterialTheme.typography.titleLarge, color = GenTVPalette.Ink)
             Spacer(Modifier.height(12.dp))
-            listOf(AppLanguage.ENGLISH to "English", AppLanguage.CHINESE to "简体中文").forEach { (choice, label) ->
-                Row(Modifier.fillMaxWidth().clickable(role = Role.RadioButton) { changeLanguage(choice) }
-                    .heightIn(min = 56.dp), verticalAlignment = Alignment.CenterVertically) {
-                    RadioButton(selected = language == choice, onClick = null)
-                    Spacer(Modifier.width(12.dp))
-                    Text(label, color = GenTVPalette.Ink, localize = false)
-                }
-            }
-            Text("Changes take effect immediately and are saved on this phone.", color = GenTVPalette.Muted, style = MaterialTheme.typography.bodyMedium)
+            Text("繁體中文（台灣）", color = GenTVPalette.Ink, style = MaterialTheme.typography.bodyLarge, localize = false)
         }
         CardBox {
             Text("Updates", style = MaterialTheme.typography.titleLarge, color = GenTVPalette.Ink)
