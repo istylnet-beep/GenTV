@@ -39,18 +39,18 @@ class SettingsScreenTest {
     @Test fun unconfiguredUpdateServiceOffersOfficialWebsite() {
         var website: String? = null
         compose.setContent { GenTVTheme { SettingsScreen(UpdateStatus.Unconfigured, {}, {}, { website = it }) } }
-        compose.onNodeWithText("Automatic update service is not configured yet. Visit the official website for downloads.").performScrollTo().assertExists()
-        compose.onNodeWithText("Official website").performScrollTo().performClick()
+        compose.onNodeWithText("自動更新服務尚未設定，請前往官網下載。").performScrollTo().assertExists()
+        compose.onNodeWithText("官方網站").performScrollTo().performClick()
         assertEquals(BuildConfig.DOWNLOAD_URL, website)
     }
     @Test fun checkingDisablesDuplicateRequests() {
         compose.setContent { GenTVTheme { SettingsScreen(UpdateStatus.Checking, {}, {}, {}) } }
-        compose.onNodeWithText("Checking for updates…").performScrollTo().assertIsNotEnabled()
+        compose.onNodeWithText("正在檢查更新…").performScrollTo().assertIsNotEnabled()
     }
     @Test fun feedbackOpensFromSettings() {
         var opened = false
         compose.setContent { GenTVTheme { SettingsScreen(UpdateStatus.Idle, {}, {}, {}, onFeedback = { opened = true }) } }
-        compose.onNodeWithText("Feedback").performScrollTo().performClick()
+        compose.onNodeWithText("意見回饋").performScrollTo().performClick()
         assertTrue(opened)
     }
 
@@ -73,7 +73,7 @@ class SettingsScreenTest {
         var downloaded = false
         var website = false
         compose.setContent { GenTVTheme { SettingsScreen(UpdateStatus.Available(info), {}, {}, { website = true }, onDownloadUpdate = { downloaded = it == info }) } }
-        compose.onNodeWithText("Download update").performScrollTo().performClick()
+        compose.onNodeWithText("下載更新").performScrollTo().performClick()
         assertTrue(downloaded); assertFalse(website)
     }
 
