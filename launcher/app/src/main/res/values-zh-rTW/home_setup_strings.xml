@@ -1,0 +1,6 @@
+<resources>
+    <string name="home_setup_choose">請在系統畫面中選擇 GenTV；如果有「一律使用」選項，請選擇該選項。</string>
+    <string name="home_setup_not_changed">GenTV 尚未設為系統預設主畫面。您可以嘗試其他系統選擇方式，也可以取消。</string>
+    <string name="home_setup_try_next">嘗試其他方式</string>
+    <string name="home_setup_unavailable">這台電視沒有其他可用的主畫面設定入口。如果系統設定中有預設主畫面選項，請在該處選擇 GenTV。</string>
+</resources>
