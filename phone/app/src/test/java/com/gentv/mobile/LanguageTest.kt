@@ -23,7 +23,7 @@ class LanguageTest {
     }
 
     @Test fun translationsUseTaiwanTraditionalChineseAndKeepDynamicValues() {
-        assertEquals("應用管理", AppCopy.translate("Apps", AppLanguage.TRADITIONAL_CHINESE))
+        assertEquals("應用程式管理", AppCopy.translate("Apps", AppLanguage.TRADITIONAL_CHINESE))
         assertEquals("設定", AppCopy.translate("Settings", AppLanguage.TRADITIONAL_CHINESE))
         assertEquals("已停用 4 項", AppCopy.translate("4 disabled", AppLanguage.TRADITIONAL_CHINESE))
         assertEquals("可用 5.7 GB / 總容量 9.8 GB", AppCopy.translate("5.7 GB free / 9.8 GB total", AppLanguage.TRADITIONAL_CHINESE))
