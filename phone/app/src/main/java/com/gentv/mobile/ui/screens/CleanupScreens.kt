@@ -138,7 +138,7 @@ fun HomeScreenStep(
             CardBox(color = GenTVPalette.BlueSoft, border = GenTVPalette.Blue) {
                 androidx.compose.foundation.Image(
                     painter = androidx.compose.ui.res.painterResource(com.gentv.mobile.R.drawable.gentv_desktop_preview),
-                    contentDescription = "GenTV desktop preview",
+                    contentDescription = "GenTV 電視桌面預覽",
                     modifier = Modifier.fillMaxWidth().aspectRatio(2066f / 1104f).clip(RoundedCornerShape(16.dp)),
                     contentScale = androidx.compose.ui.layout.ContentScale.Fit,
                 )
