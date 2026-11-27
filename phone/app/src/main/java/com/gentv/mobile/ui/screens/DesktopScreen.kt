@@ -215,7 +215,7 @@ fun DesktopScreen(state: DesktopState, onClose: () -> Unit, onRead: () -> Unit,
                     val targetId = config.optJSONObject("sourceTargets")?.optString(id, id) ?: id
                     val targetLabel = (0 until sources.length()).map { sources.getJSONObject(it) }.firstOrNull { it.getString("id") == targetId }?.getString("label") ?: "Original input"
                     Box {
-                        TextButton({ chooseTarget = true }, enabled = !state.busy) { Text("Opens: $targetLabel") }
+                        TextButton({ chooseTarget = true }, enabled = !state.busy) { Text(com.gentv.mobile.ui.AppCopy.translate("Opens: {0}", com.gentv.mobile.ui.LocalAppLanguage.current).replace("{0}", targetLabel)) }
                         DropdownMenu(chooseTarget, { chooseTarget = false }) {
                             for (j in 0 until sources.length()) {
                                 val target = sources.getJSONObject(j)
@@ -232,7 +232,7 @@ fun DesktopScreen(state: DesktopState, onClose: () -> Unit, onRead: () -> Unit,
                     }
                     var chooseDevice by remember(id) { mutableStateOf(false) }
                     Box {
-                        TextButton({ chooseDevice = true }, enabled = !state.busy) { Text("Device: " + (config.optJSONObject("sourceDevices")?.optString(id)?.takeIf { it.isNotBlank() } ?: "HDMI")) }
+                        TextButton({ chooseDevice = true }, enabled = !state.busy) { Text(com.gentv.mobile.ui.AppCopy.translate("Device: {0}", com.gentv.mobile.ui.LocalAppLanguage.current).replace("{0}", config.optJSONObject("sourceDevices")?.optString(id)?.takeIf { it.isNotBlank() } ?: "HDMI")) }
                         DropdownMenu(chooseDevice, { chooseDevice = false }) {
                             for ((device, title) in listOf("" to "HDMI", "playstation" to "PlayStation", "switch" to "Switch", "xbox" to "Xbox", "appletv" to "Apple TV", "computer" to "Computer")) {
                                 DropdownMenuItem(text = { Text(title) }, onClick = {
@@ -266,7 +266,7 @@ fun DesktopScreen(state: DesktopState, onClose: () -> Unit, onRead: () -> Unit,
                     Text((if (config.optString("effects", "auto") == mode) "• " else "") + mode.replaceFirstChar { it.uppercase() })
                 }
             }
-            Text("TV currently uses ${if (snapshot.optBoolean("smooth")) "smooth" else "full"} focus scaling.", color = GenTVPalette.Muted)
+            Text(com.gentv.mobile.ui.AppCopy.translate("TV currently uses {0} focus scaling.", com.gentv.mobile.ui.LocalAppLanguage.current).replace("{0}", if (snapshot.optBoolean("smooth")) "平滑" else "完整"), color = GenTVPalette.Muted)
             if (!state.busy && snapshot.optBoolean("canUndo")) TextLink("Undo last saved change", onUndo)
         }
         BigButton("Create verification report", onReport, enabled = !state.busy)
