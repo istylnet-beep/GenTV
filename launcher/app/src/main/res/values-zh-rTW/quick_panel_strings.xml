@@ -30,5 +30,4 @@
     <string name="memory_cleanup_scope">%1$d 個背景程序已結束 · 按確認鍵返回</string>
     <string name="memory_cleanup_failed">無法執行背景清理</string>
     <string name="memory_cleanup_retry">請開啟電視的網路偵錯，並允許本機連線</string>
-    <string name="quick_start_app">設定開機啟動應用程式</string>
 </resources>
