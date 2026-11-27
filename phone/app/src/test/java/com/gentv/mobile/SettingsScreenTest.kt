@@ -39,7 +39,7 @@ class SettingsScreenTest {
     @Test fun unconfiguredUpdateServiceOffersOfficialWebsite() {
         var website: String? = null
         compose.setContent { GenTVTheme { SettingsScreen(UpdateStatus.Unconfigured, {}, {}, { website = it }) } }
-        compose.onNodeWithText("自動更新服務尚未設定，請前往官網下載。").performScrollTo().assertExists()
+        compose.onNodeWithText("自動更新服務尚未設定，請前往官方網站下載更新。").performScrollTo().assertExists()
         compose.onNodeWithText("官方網站").performScrollTo().performClick()
         assertEquals(BuildConfig.DOWNLOAD_URL, website)
     }
