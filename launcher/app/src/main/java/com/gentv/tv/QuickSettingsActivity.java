@@ -123,7 +123,6 @@ public final class QuickSettingsActivity extends Activity {
                 () -> launch(SystemSettings.intent(this, Settings.ACTION_WIFI_SETTINGS)));
         medallion(quickStrip, R.drawable.ic_qs_display, R.string.quick_display,
                 () -> launch(SystemSettings.intent(this, Settings.ACTION_DISPLAY_SETTINGS)));
-        medallion(quickStrip, R.drawable.ic_qs_memory, R.string.quick_memory, this::showMemory);
 
         // Zone 2: Wallpaper & screensaver hero tile with live thumbnail preview
         rows.addView(buildWallpaperHero(wallpaperPreview));
