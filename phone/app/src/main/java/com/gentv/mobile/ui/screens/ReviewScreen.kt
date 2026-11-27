@@ -123,7 +123,7 @@ fun ReviewScreen(
             )
         }
     }) {
-        Title("应用精简")
+        Title("應用程式精簡")
         if (s.backup != BackupStatus.Saved) { BackupHeader(s.backup, onRetryBackup); return@ScreenFrame }
         if (s.noList) {
             BackupHeader(s.backup, onRetryBackup)
@@ -181,7 +181,7 @@ private fun FewFoundCard(count: Int, onShowMore: () -> Unit) {
             style = MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink,
         )
         Spacer(Modifier.heightIn(min = 10.dp))
-        BigButton("查看更多应用", onShowMore, color = GenTVPalette.Grey, textColor = GenTVPalette.Ink)
+        BigButton("查看更多應用程式", onShowMore, color = GenTVPalette.Grey, textColor = GenTVPalette.Ink)
     }
 }
 
