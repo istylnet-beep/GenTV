@@ -1,0 +1,25 @@
+<resources>
+    <string name="cloud_settings">軟體更新</string>
+    <string name="cloud_statistics">分享匿名使用統計資料</string>
+    <string name="cloud_statistics_hint">選擇性功能：僅統計使用次數、前景執行時間及 GenTV 版本。不包含裝置識別資訊或應用程式清單，預設為關閉。</string>
+    <string name="cloud_check_update">檢查更新</string>
+    <string name="cloud_checking">正在檢查…</string>
+    <string name="cloud_latest">GenTV 已是最新版本。</string>
+    <string name="cloud_update_available">發現 GenTV 新版本</string>
+    <string name="cloud_download">下載更新</string>
+    <string name="cloud_downloading">正在下載並驗證…</string>
+    <string name="cloud_failed">服務暫時無法使用或驗證失敗，請稍後再試。</string>
+    <string name="cloud_install_permission">請允許 GenTV 安裝更新，返回後選擇安裝。</string>
+    <string name="cloud_install">安裝已驗證的更新</string>
+    <string name="cloud_install_confirm">請在 Android 安裝程式中確認安裝。</string>
+    <string name="cloud_current_version">目前版本 %1$s</string>
+    <string name="cloud_update_title">軟體更新</string>
+    <string name="cloud_update_intro">取得最新改進，讓 GenTV 使用起來更順暢。</string>
+    <string name="cloud_later">稍後</string>
+    <string name="cloud_upgrade_now">立即升級</string>
+    <string name="cloud_version_ready">GenTV %1$s 已準備就緒。下載並驗證後，請在電視上確認安裝。</string>
+    <string name="cloud_required">目前版本必須更新後才能繼續使用。</string>
+    <string name="cloud_stats_on">匿名使用統計 · 已啟用</string>
+    <string name="cloud_stats_off">匿名使用統計 · 已關閉</string>
+    <string name="hdmi_connected">已連接 HDMI</string>
+</resources>
