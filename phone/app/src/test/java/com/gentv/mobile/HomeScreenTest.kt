@@ -69,7 +69,7 @@ class HomeScreenTest {
             }
         }
         compose.onNodeWithText("GenTV 桌面").assertExists()
-        compose.onNodeWithContentDescription("GenTV 桌面預覽").assertExists()
+        compose.onNodeWithContentDescription("GenTV 電視桌面預覽").assertExists()
         compose.onNodeWithText("Simple").assertDoesNotExist()
         compose.onNodeWithText("compatible desktop").assertDoesNotExist()
         compose.onNodeWithText("Projectivy").assertDoesNotExist()
@@ -88,11 +88,11 @@ class HomeScreenTest {
                 )
             }
         }
-        compose.onNodeWithText("僅預覽，保留現有桌面").performClick()
+        compose.onNodeWithText("先預覽，保留目前主畫面").performClick()
         state = HomeState.GenTVResult(true)
         compose.waitForIdle()
         compose.onNodeWithText("電視上已顯示 GenTV 了嗎？").assertExists()
-        compose.onNodeWithText("暫不切換，保留現有桌面").performClick()
+        compose.onNodeWithText("暫時不要，保留目前主畫面").performClick()
         compose.onNodeWithText("是的，設為預設桌面").performClick()
         state = HomeState.GenTVResult(true, previewOnly = true)
         compose.waitForIdle()
@@ -110,13 +110,24 @@ class HomeScreenTest {
 
     @Test fun handoverCopyHasChineseTranslations() {
         val zh = com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE
-        for (en in listOf(
-            "僅預覽，保留現有桌面", "電視上已顯示 GenTV 了嗎？", "是的，設為預設桌面",
-            "暫不切換，保留現有桌面", "GenTV 已安裝，預設桌面未切換", "停用原桌面後再試",
-            "已重啟電視，繼續",
-        )) assertTrue(en, com.gentv.mobile.ui.AppCopy.translate(en, zh) != en)
-        assertEquals("已停用（未卸载）：Google TV。恢复所有更改会重新启用它们，并把原桌面设回默认桌面。",
-            com.gentv.mobile.ui.AppCopy.translate("Turned off, never uninstalled: Google TV. Restore everything turns them back on and makes your original home screen Home again.", zh))
+        val expected = mapOf(
+            "Just preview it, keep my home screen" to "先預覽，保留目前主畫面",
+            "Not now, keep my home screen" to "暫時不要，保留目前主畫面",
+            "Yes, make GenTV my home screen" to "是的，設為預設桌面",
+            "GenTV desktop preview" to "GenTV 電視桌面預覽",
+            "Firmware kept Home." to "韌體仍保留原本的主畫面。",
+            "Restart first." to "請先重新啟動電視。",
+        )
+        expected.forEach { (source, translated) ->
+            assertEquals(source, translated, com.gentv.mobile.ui.AppCopy.translate(source, zh))
+        }
+        assertEquals(
+            "已停用（未解除安裝）：Google TV。恢復所有更改會重新啟用它們，並把原桌面設回預設桌面。",
+            com.gentv.mobile.ui.AppCopy.translate(
+                "Turned off, never uninstalled: Google TV. Restore everything turns them back on and makes your original home screen Home again.",
+                zh,
+            ),
+        )
     }
 
     @Test fun renderDarkHomepage() {
