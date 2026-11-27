@@ -293,7 +293,7 @@ data class FilesState(val items: List<SendItem> = emptyList(), val freeBytes: Lo
 }
 
 data class UiState(
-    val languageCode: String = "en",
+    val languageCode: String = "zh-TW",
     val settingsUpdate: com.gentv.mobile.data.UpdateStatus = com.gentv.mobile.data.UpdateStatus.Idle,
     val wizard: Wizard = Wizard(),
     val connect: ConnectState = ConnectState.Scanning(),
