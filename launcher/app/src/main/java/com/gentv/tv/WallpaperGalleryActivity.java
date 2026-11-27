@@ -1202,7 +1202,21 @@ public final class WallpaperGalleryActivity extends Activity {
     }
 
     private String title(JSONObject item) {
-        return copy(item.optString("title"), item.optString("titleEn"));
+        String value = copy(item.optString("title"), item.optString("titleEn"));
+        if (!"zh".equals(CompatApi.locale(getResources().getConfiguration()).getLanguage())) return value;
+        // Catalog titles may be supplied by the cloud in Simplified Chinese.
+        switch (value) {
+            case "图片": return "圖片";
+            case "默认壁纸": return "預設桌布";
+            case "萌宠": return "萌寵";
+            case "随机": return "隨機";
+            case "全部随机": return "全部隨機";
+            case "随机播放萌宠": return "隨機播放萌寵";
+            case "随机播放自然": return "隨機播放自然";
+            case "随机播放唯美": return "隨機播放唯美";
+            case "随机播放图片": return "隨機播放圖片";
+            default: return value;
+        }
     }
 
     private String copy(String zh, String en) {
