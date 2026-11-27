@@ -66,7 +66,6 @@ public final class TvMetrics extends Application implements Application.Activity
     }
     private static String screen(Activity a) {
         if (a instanceof MainActivity) return "home";
-        if (a instanceof LauncherSettingsActivity || a instanceof HomeSettingsActivity) return "launcher_settings";
         if (a instanceof QuickSettingsActivity) return "quick_settings";
         if (a instanceof CloudSettingsActivity) return "update";
         if (a instanceof MetricsSettingsActivity) return "privacy";
