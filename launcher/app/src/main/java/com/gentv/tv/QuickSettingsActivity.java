@@ -446,24 +446,6 @@ public final class QuickSettingsActivity extends Activity {
         utilityItem(r1, R.drawable.ic_qs_home, R.string.quick_default_home,
                 () -> launch(new Intent(this, HomeSettingsActivity.class)));
 
-        addHairlineDivider(plate);
-
-        LinearLayout r2 = plateRow(plate);
-        utilityItem(r2, R.drawable.ic_qs_shield, R.string.quick_child,
-                () -> launch(new Intent(this, ChildSettingsActivity.class)));
-        utilityItem(r2, R.drawable.ic_qs_share_code, R.string.quick_share_code,
-                () -> {
-                    startActivity(new Intent(this, ShareCodeActivity.class));
-                    finish();
-                });
-
-        addHairlineDivider(plate);
-
-        LinearLayout r3 = plateRow(plate);
-        utilityItem(r3, R.drawable.ic_qs_update, R.string.cloud_settings,
-                () -> launch(new Intent(this, CloudSettingsActivity.class)));
-        utilityItem(r3, R.drawable.ic_qs_info, R.string.quick_about, this::showAbout);
-
         return plate;
     }
 
