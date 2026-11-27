@@ -68,12 +68,12 @@ class HomeScreenTest {
                 )
             }
         }
-        compose.onNodeWithText("GenTV 電視桌面").assertExists()
-        compose.onNodeWithContentDescription("GenTV 電視桌面預覽").assertExists()
+        compose.onNodeWithText("GenTV 桌面").assertExists()
+        compose.onNodeWithContentDescription("GenTV 桌面預覽").assertExists()
         compose.onNodeWithText("Simple").assertDoesNotExist()
         compose.onNodeWithText("compatible desktop").assertDoesNotExist()
         compose.onNodeWithText("Projectivy").assertDoesNotExist()
-        compose.onNodeWithText("安裝 GenTV 電視桌面").performClick()
+        compose.onNodeWithText("安裝 GenTV 桌面").performClick()
         assertEquals(true, installed)
     }
 
@@ -88,32 +88,32 @@ class HomeScreenTest {
                 )
             }
         }
-        compose.onNodeWithText("先預覽，保留目前主畫面").performClick()
+        compose.onNodeWithText("僅預覽，保留現有桌面").performClick()
         state = HomeState.GenTVResult(true)
         compose.waitForIdle()
-        compose.onNodeWithText("GenTV 已在電視上執行嗎？").assertExists()
-        compose.onNodeWithText("暫時不要，保留目前主畫面").performClick()
-        compose.onNodeWithText("是，將 GenTV 設為主畫面").performClick()
+        compose.onNodeWithText("電視上已顯示 GenTV 了嗎？").assertExists()
+        compose.onNodeWithText("暫不切換，保留現有桌面").performClick()
+        compose.onNodeWithText("是的，設為預設桌面").performClick()
         state = HomeState.GenTVResult(true, previewOnly = true)
         compose.waitForIdle()
-        compose.onNodeWithText("是，將 GenTV 設為主畫面").assertDoesNotExist()
-        compose.onNodeWithText("GenTV 已在電視上開啟，未變更主畫面。").assertExists()
+        compose.onNodeWithText("是的，設為預設桌面").assertDoesNotExist()
+        compose.onNodeWithText("GenTV 已在電視上開啟，電視桌面未作更改。").assertExists()
         state = HomeState.Problem("Firmware kept Home.", worried = false, action = HomeAction.COMPAT_HANDOVER, installed = true)
         compose.waitForIdle()
-        compose.onNodeWithText("GenTV 已安裝，尚未切換主畫面").assertExists()
-        compose.onNodeWithText("停用舊主畫面後再試一次").performClick()
+        compose.onNodeWithText("GenTV 已安裝，預設桌面未切換").assertExists()
+        compose.onNodeWithText("停用原桌面後再試").performClick()
         state = HomeState.Problem("Restart first.", worried = false, action = HomeAction.CONFIRM_REBOOT, installed = true)
         compose.waitForIdle()
-        compose.onNodeWithText("我已重新啟動電視，繼續").performClick()
+        compose.onNodeWithText("已重啟電視，繼續").performClick()
         assertEquals(listOf("preview", "continue", "home", "COMPAT_HANDOVER", "CONFIRM_REBOOT"), calls)
     }
 
     @Test fun handoverCopyHasChineseTranslations() {
         val zh = com.gentv.mobile.ui.AppLanguage.TRADITIONAL_CHINESE
         for (en in listOf(
-            "先預覽，保留目前主畫面", "GenTV 已在電視上執行嗎？", "是，將 GenTV 設為主畫面",
-            "暫時不要，保留目前主畫面", "GenTV 已安裝，尚未切換主畫面", "停用舊主畫面後再試一次",
-            "我已重新啟動電視，繼續",
+            "僅預覽，保留現有桌面", "電視上已顯示 GenTV 了嗎？", "是的，設為預設桌面",
+            "暫不切換，保留現有桌面", "GenTV 已安裝，預設桌面未切換", "停用原桌面後再試",
+            "已重啟電視，繼續",
         )) assertTrue(en, com.gentv.mobile.ui.AppCopy.translate(en, zh) != en)
         assertEquals("已停用（未卸载）：Google TV。恢复所有更改会重新启用它们，并把原桌面设回默认桌面。",
             com.gentv.mobile.ui.AppCopy.translate("Turned off, never uninstalled: Google TV. Restore everything turns them back on and makes your original home screen Home again.", zh))
