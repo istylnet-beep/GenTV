@@ -178,7 +178,7 @@ public final class WallpaperGalleryActivity extends Activity {
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         statusPill = new TextView(this);
-        statusPill.setText(copy("正在加载在线壁纸…", "Loading wallpapers…"));
+        statusPill.setText(copy("正在載入線上桌布…", "Loading wallpapers…"));
         statusPill.setTextColor(INK_MUTED);
         statusPill.setTextSize(13f);
         statusPill.setTypeface(fontRegular);
@@ -195,7 +195,7 @@ public final class WallpaperGalleryActivity extends Activity {
 
         // Right-aligned single frosted pill: Local wallpapers (no Shuffle button in header).
         TextView localBtn = new TextView(this);
-        localBtn.setText(copy("本地壁纸", "Local wallpapers"));
+        localBtn.setText(copy("本機桌布", "Local wallpapers"));
         localBtn.setTextSize(13.5f);
         localBtn.setTypeface(fontMedium);
         localBtn.setTextColor(INK_SOFT);
@@ -230,7 +230,7 @@ public final class WallpaperGalleryActivity extends Activity {
             if (cached != null) runOnUiThread(() -> {
                 if (isDestroyed()) return;
                 render(cached);
-                showStatus(copy("已显示缓存 · 正在更新…", "Cached wallpapers · Updating…"), false);
+                showStatus(copy("已顯示快取 · 正在更新…", "Cached wallpapers · Updating…"), false);
             });
             try {
                 JSONObject response = TvCloud.json("wallpaper?view=catalog");
@@ -255,7 +255,7 @@ public final class WallpaperGalleryActivity extends Activity {
                 runOnUiThread(() -> {
                     if (isDestroyed()) return;
                     if (cached != null) {
-                        showStatus(copy("网络不可用 · 显示上次内容", "Offline · Showing cached wallpapers"), true);
+                        showStatus(copy("網路無法使用 · 顯示上次內容", "Offline · Showing cached wallpapers"), true);
                     } else {
                         // Keep the bundled default wallpaper available without showing an offline notice.
                         statusPill.setVisibility(View.GONE);
@@ -273,12 +273,12 @@ public final class WallpaperGalleryActivity extends Activity {
             JSONArray fallback = new JSONArray();
             JSONObject def = new JSONObject()
                     .put("id", "default")
-                    .put("title", "默认壁纸")
+                    .put("title", "預設桌布")
                     .put("titleEn", "Default wallpaper")
                     .put("kind", "image");
             fallback.put(new JSONObject()
                     .put("id", "images")
-                    .put("title", "图片")
+                    .put("title", "圖片")
                     .put("titleEn", "Pictures")
                     .put("items", new JSONArray().put(def)));
             render(fallback);
@@ -332,7 +332,7 @@ public final class WallpaperGalleryActivity extends Activity {
                 continue;
             }
             String shelfTitle = "shuffle".equals(catId)
-                    ? copy("随机", "Shuffle")
+                    ? copy("隨機", "Shuffle")
                     : title(group);
             JSONArray items = visibleItems(group.optJSONArray("items"));
             if (items.length() == 0) continue;
@@ -382,18 +382,18 @@ public final class WallpaperGalleryActivity extends Activity {
         return visible;
     }
 
-    /** Ensures the 5 requested shuffle options always appear cleanly under the "随机" shelf. */
+    /** Ensures the 5 requested shuffle options always appear cleanly under the "隨機" shelf. */
     private JSONObject buildShuffleGroup() {
         try {
             JSONArray items = new JSONArray();
-            items.put(shuffleItem("shuffle-all", "全部随机", "Shuffle all", "all"));
-            items.put(shuffleItem("shuffle-pets", "随机播放萌宠", "Shuffle pets", "pets"));
-            items.put(shuffleItem("shuffle-nature", "随机播放自然", "Shuffle nature", "nature"));
-            items.put(shuffleItem("shuffle-dreamy", "随机播放唯美", "Shuffle dreamy", "dreamy"));
-            items.put(shuffleItem("shuffle-images", "随机播放图片", "Shuffle pictures", "images"));
+            items.put(shuffleItem("shuffle-all", "全部隨機", "Shuffle all", "all"));
+            items.put(shuffleItem("shuffle-pets", "隨機播放萌寵", "Shuffle pets", "pets"));
+            items.put(shuffleItem("shuffle-nature", "隨機播放自然", "Shuffle nature", "nature"));
+            items.put(shuffleItem("shuffle-dreamy", "隨機播放唯美", "Shuffle dreamy", "dreamy"));
+            items.put(shuffleItem("shuffle-images", "隨機播放圖片", "Shuffle pictures", "images"));
             return new JSONObject()
                     .put("id", "shuffle")
-                    .put("title", "随机")
+                    .put("title", "隨機")
                     .put("titleEn", "Shuffle")
                     .put("items", items);
         } catch (Exception e) {
@@ -911,7 +911,7 @@ public final class WallpaperGalleryActivity extends Activity {
         section.setPadding(padH, dp(26), padH, 0);
 
         TextView heading = new TextView(this);
-        heading.setText(copy("屏保设置", "Screensaver"));
+        heading.setText(copy("螢幕保護程式設定", "Screensaver"));
         heading.setTextColor(INK_LIGHT);
         heading.setTextSize(19f);
         heading.setTypeface(fontMedium);
@@ -937,14 +937,14 @@ public final class WallpaperGalleryActivity extends Activity {
         LinearLayout switchMeta = new LinearLayout(this);
         switchMeta.setOrientation(LinearLayout.VERTICAL);
         TextView switchTitle = new TextView(this);
-        switchTitle.setText(copy("屏保开关", "Screensaver"));
+        switchTitle.setText(copy("螢幕保護程式開關", "Screensaver"));
         switchTitle.setTextColor(INK_LIGHT);
         switchTitle.setTextSize(15.5f);
         switchTitle.setTypeface(fontMedium);
         switchMeta.addView(switchTitle);
 
         TextView switchDesc = new TextView(this);
-        switchDesc.setText(copy("桌面空闲达到设定时间后自动进入航拍屏保",
+        switchDesc.setText(copy("桌面閒置達到設定時間後，自動進入空拍螢幕保護程式",
                 "Automatically launch aerial screensaver while Home is idle"));
         switchDesc.setTextColor(INK_MUTED);
         switchDesc.setTextSize(12.5f);
@@ -1004,7 +1004,7 @@ public final class WallpaperGalleryActivity extends Activity {
         timeRow.setClipToPadding(false);
 
         TextView timeTitle = new TextView(this);
-        timeTitle.setText(copy("启动时间", "Start after"));
+        timeTitle.setText(copy("啟動時間", "Start after"));
         timeTitle.setTextColor(INK_LIGHT);
         timeTitle.setTextSize(15.5f);
         timeTitle.setTypeface(fontMedium);
@@ -1021,7 +1021,7 @@ public final class WallpaperGalleryActivity extends Activity {
             final int mins = SCREENSAVER_OPTIONS[i];
             TextView chip = new TextView(this);
             chip.setTag(mins);
-            chip.setText(copy(mins + " 分钟", mins + " min"));
+            chip.setText(copy(mins + " 分鐘", mins + " min"));
             chip.setTextSize(13.5f);
             chip.setTypeface(fontMedium);
             chip.setGravity(Gravity.CENTER);
@@ -1099,7 +1099,7 @@ public final class WallpaperGalleryActivity extends Activity {
         boolean toggleFocused = screensaverTogglePill != null && screensaverTogglePill.isFocused();
 
         if (screensaverToggleLabel != null) {
-            screensaverToggleLabel.setText(enabled ? copy("已开启", "On") : copy("已关闭", "Off"));
+            screensaverToggleLabel.setText(enabled ? copy("已啟用", "On") : copy("已停用", "Off"));
             screensaverToggleLabel.setTextColor(toggleFocused ? INK_DARK : INK_SOFT);
         }
         if (screensaverToggleDot != null) {
