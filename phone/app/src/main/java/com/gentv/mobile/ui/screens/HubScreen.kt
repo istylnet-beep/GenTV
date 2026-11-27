@@ -108,8 +108,8 @@ fun HubScreen(
                     if (!fireTv) QuickEntry("电视桌面", GenIcons.Home, onHomeScreen, Modifier.weight(1f))
                 }
                 Row(Modifier.fillMaxWidth().padding(top = 8.dp, start = 4.dp, end = 4.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-                    Text("系统维护与优化", color = HomePalette.Secondary, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
-                    Text("按需检测", color = HomePalette.Muted, fontSize = 12.sp)
+                    Text("系統維護與最佳化", color = HomePalette.Secondary, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+                    Text("依需求檢查", color = HomePalette.Muted, fontSize = 12.sp)
                 }
                 Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                     MaintenanceCard("空间深度清理", "查看存储与缓存", "待检测", GenIcons.Storage, false, onSpace, Modifier.weight(1f).fillMaxHeight())
@@ -185,7 +185,7 @@ private fun TelevisionPanel(tv: TvSummary?, onDevices: () -> Unit, screenshot: a
                             .clickable(role = Role.Button, onClick = onDevices).heightIn(min = 44.dp)
                             .padding(horizontal = 12.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                            Text("切换设备", fontSize = 12.sp, color = HomePalette.Secondary)
+                            Text("切換裝置", fontSize = 12.sp, color = HomePalette.Secondary)
                             Icon(Icons.Outlined.SwapHoriz, null, Modifier.size(15.dp), tint = HomePalette.Secondary)
                         }
                     }

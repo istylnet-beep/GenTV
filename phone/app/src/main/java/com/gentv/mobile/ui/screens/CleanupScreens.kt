@@ -62,7 +62,7 @@ import com.gentv.core.ops.PkgResult
 fun TidyingScreen(s: TidyState, onRestore: () -> Unit, onContinue: () -> Unit, onShareLogs: () -> Unit) {
     val stopped = s.stopReason != null
     ScreenFrame(top = if (stopped) ({ com.gentv.mobile.ui.TopBar("返回结果", onContinue, null) }) else null, bottom = if (!stopped) null else { {
-        BigButton("恢复所有更改", onRestore, color = GenTVPalette.Green, leading = { Icon(Icons.Rounded.Restore, null, tint = Color(0xFF14213A)) })
+        BigButton("還原所有變更", onRestore, color = GenTVPalette.Green, leading = { Icon(Icons.Rounded.Restore, null, tint = Color(0xFF14213A)) })
         TextLink("Keep what was done and continue", onContinue)
         androidx.compose.foundation.layout.Row { TextLink("Share logs", onShareLogs); com.gentv.mobile.ui.ReportProblemLink("tidy") }
     } }) {
@@ -73,7 +73,7 @@ fun TidyingScreen(s: TidyState, onRestore: () -> Unit, onContinue: () -> Unit, o
             Body("Your TV is fine. ${s.disabledCount} apps were turned off before it stopped; Restore everything turns them back on.")
         } else {
             Bubble(if (s.saving) "Saving, keep the TV on" else "Tidying up…") { Spinner(26.dp) }
-            Body("操作进行中，请保持电视开机。完成或安全停止后可返回。")
+            Body("操作進行中，請保持電視開機。完成或安全停止後即可返回。")
             ProgressBar(if (s.order.isEmpty()) 0f else s.results.size / s.order.size.toFloat(), GenTVPalette.Green)
             if (s.reconnecting) Note("Wi-Fi dropped. Reconnecting and carrying on where it left off…", color = GenTVPalette.BlueSoft, textColor = GenTVPalette.Ink)
         }
@@ -178,7 +178,7 @@ fun HomeScreenStep(
             Bubble("Waiting for the install…") { Spinner(26.dp) }
         }
         HomeState.Running -> ScreenFrame {
-            Body("正在设置电视，请等待操作完成后返回。")
+            Body("正在設定電視，請等待操作完成後再返回。")
             HeroMascot()
             Bubble("Setting up your new home screen…") { Spinner(26.dp) }
             Body("About 30 seconds. Please don't press the remote.")

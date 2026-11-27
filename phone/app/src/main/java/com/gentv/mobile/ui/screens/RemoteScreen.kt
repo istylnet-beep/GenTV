@@ -173,7 +173,7 @@ fun RemoteScreen(
     CompanionScreen("Remote", tvName, 1, onNavigate, showTitle = false) {
         if (s.reconnecting) {
             androidx.compose.material3.LinearProgressIndicator(Modifier.fillMaxWidth())
-            Text("正在重新连接电视…", color = CompanionColors.Secondary, fontSize = 12.sp)
+            Text("正在重新連線電視…", color = CompanionColors.Secondary, fontSize = 12.sp)
         }
         if (s.message != null) CompanionCard {
             Text(s.message, color = CompanionColors.Secondary, fontSize = 13.sp)
@@ -572,11 +572,11 @@ private fun KeyboardSheet(enabled: Boolean, press: (RemoteKey) -> Unit, onType: 
     LaunchedEffect(Unit) { runCatching { focus.requestFocus() } }
     ModalBottomSheet(onDismissRequest = onClose, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
         Column(Modifier.fillMaxWidth().padding(horizontal = 18.dp).padding(bottom = 24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text("输入到电视", style = MaterialTheme.typography.titleMedium, color = RemotePalette.Ink)
+            Text("輸入至電視", style = MaterialTheme.typography.titleMedium, color = RemotePalette.Ink)
             OutlinedTextField(
                 value = text, onValueChange = { text = it }, enabled = enabled,
                 modifier = Modifier.fillMaxWidth().focusRequester(focus), singleLine = true,
-                placeholder = { Text("搜索或输入文字") },
+                placeholder = { Text("搜尋或輸入文字") },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
                 keyboardActions = KeyboardActions(onSend = { send() }),
             )
@@ -589,7 +589,7 @@ private fun KeyboardSheet(enabled: Boolean, press: (RemoteKey) -> Unit, onType: 
                         .clickable(enabled = enabled, role = Role.Button) { send() }
                         .padding(horizontal = 28.dp),
                     contentAlignment = Alignment.Center,
-                ) { Text("发送", style = MaterialTheme.typography.labelLarge, color = Color(0xFF003064)) }
+                ) { Text("傳送", style = MaterialTheme.typography.labelLarge, color = Color(0xFF003064)) }
             }
         }
     }
