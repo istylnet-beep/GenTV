@@ -194,7 +194,7 @@ private fun MoreAppsCard(apps: List<Candidate>, selected: Set<String>, onToggleA
             IconBadge(Icons.Rounded.AddCircle, GenTVPalette.Blue)
             Spacer(Modifier.width(12.dp))
             Column(Modifier.weight(1f)) {
-                Text("More apps (${apps.size})", style = MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink)
+                Text(com.gentv.mobile.ui.AppCopy.translate("More apps ({0})", com.gentv.mobile.ui.LocalAppLanguage.current).replace("{0}", apps.size.toString()), style = MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink)
                 Text("From other TVs' lists", style = MaterialTheme.typography.labelMedium, color = GenTVPalette.Muted)
             }
             MoreInfo("More apps") {
@@ -230,7 +230,7 @@ private fun GroupCard(group: Group, apps: List<Candidate>, selected: Set<String>
         Row(verticalAlignment = Alignment.CenterVertically) {
             IconBadge(icon, color)
             Spacer(Modifier.width(12.dp))
-            Text("${group.title} (${apps.size})", style = MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink, modifier = Modifier.weight(1f))
+            Text("${com.gentv.mobile.ui.AppCopy.translate(group.title, com.gentv.mobile.ui.LocalAppLanguage.current)} (${apps.size})", style = MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink, modifier = Modifier.weight(1f))
             Toggle(on > 0, { onToggleGroup(group, it) }, group.title)
         }
         group.warning()?.let { w ->
