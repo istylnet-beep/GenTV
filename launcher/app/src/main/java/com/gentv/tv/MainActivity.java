@@ -779,25 +779,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         compactHeaderIcons = getResources().getBoolean(R.bool.compact_header_icons);
         if (compactHeaderIcons) {
             wifiIconOnly = true;
-            ViewGroup oldBrandParent=(ViewGroup)greeting.getParent();
-            oldBrandParent.removeView(greeting);
-            RelativeLayout header=(RelativeLayout)findViewById(R.id.topButtons).getParent();
-            RelativeLayout.LayoutParams brandPosition=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-            brandPosition.addRule(RelativeLayout.ALIGN_PARENT_END);
-            brandPosition.addRule(RelativeLayout.ALIGN_BOTTOM,R.id.leftBlock);
-            brandPosition.bottomMargin=Math.round(6*density);
-            brandPosition.rightMargin=Math.round(-4*density);
-            header.addView(greeting,brandPosition);
-            greeting.setVisibility(View.VISIBLE);
-            RelativeLayout.LayoutParams controlsPosition=(RelativeLayout.LayoutParams)findViewById(R.id.topButtons).getLayoutParams();
-            controlsPosition.removeRule(RelativeLayout.ALIGN_BOTTOM);
-            controlsPosition.removeRule(RelativeLayout.ALIGN_TOP);
-            controlsPosition.removeRule(RelativeLayout.ALIGN_PARENT_END);
-            controlsPosition.addRule(RelativeLayout.START_OF,R.id.greeting);
-            controlsPosition.addRule(RelativeLayout.ALIGN_BOTTOM,R.id.greeting);
-            controlsPosition.topMargin=0;
-            controlsPosition.setMarginEnd(Math.round(16*density));
-            findViewById(R.id.topButtons).setLayoutParams(controlsPosition);
+            // Brand mark removed from the compact header; keep the control icons right-aligned.
+            greeting.setVisibility(View.GONE);
             inputSignal = new InputSignalDrawable(this, density);
             ((TextView)btnInputs).setCompoundDrawablesRelativeWithIntrinsicBounds(inputSignal,null,null,null);
             btnWifi.setVisibility(View.VISIBLE);
@@ -810,10 +793,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 button.setPaddingRelative(iconPadding,0,iconPadding,0);
             }
             ((TextView)btnSettings).setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_controls,0,0,0);
-            // Align the visible glyph bottoms with the brand's ink, keeping the full buttons.
-            header.addOnLayoutChangeListener((v,l,t,r,b,ol,ot,or,ob) -> alignCompactHeaderIcons());
-            greeting.addOnLayoutChangeListener((v,l,t,r,b,ol,ot,or,ob) -> alignCompactHeaderIcons());
-            findViewById(R.id.topButtons).addOnLayoutChangeListener((v,l,t,r,b,ol,ot,or,ob) -> alignCompactHeaderIcons());
             btnSettings.setContentDescription(getString(R.string.desktop_control_center));
             btnSettings.setOnClickListener(v -> QuickSettingsGlass.open(this));
         }
