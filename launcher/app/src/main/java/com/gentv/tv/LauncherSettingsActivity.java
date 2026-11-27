@@ -120,8 +120,6 @@ public final class LauncherSettingsActivity extends Activity {
                         .show();
             }
         });
-        findViewById(R.id.metricsChoice).setOnClickListener(v ->
-                startActivity(new Intent(this, MetricsSettingsActivity.class)));
         findViewById(R.id.tvSettingsChoice).setOnClickListener(v ->
                 open(SystemSettings.intent(this, Settings.ACTION_SETTINGS)));
         refresh();
