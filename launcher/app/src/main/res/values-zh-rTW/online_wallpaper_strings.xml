@@ -1,0 +1,8 @@
+<resources>
+    <string name="wallpaper_online_title">線上桌布</string>
+    <string name="wallpaper_online_loading">正在載入…</string>
+    <string name="wallpaper_online_unavailable">暫時無法使用 · 點選重試</string>
+    <string name="wallpaper_online_empty">目前沒有桌布 · 點選重新整理</string>
+    <string name="wallpaper_online_name">線上桌布 %1$d</string>
+    <string name="wallpaper_online_applying">正在準備桌布…</string>
+</resources>
