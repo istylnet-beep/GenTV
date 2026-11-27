@@ -201,16 +201,6 @@ public final class QuickSettingsActivity extends Activity {
         title.setSingleLine(true);
         header.addView(title, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
 
-        TextView brand = new TextView(this);
-        brand.setText(String.format(java.util.Locale.US, "%s  %s",
-                getString(R.string.app_name), BuildConfig.VERSION_NAME));
-        brand.setTextColor(INK_LIGHT_CAPTION);
-        brand.setTextSize(11f);
-        brand.setTypeface(fontRegular);
-        CompatApi.letterSpacing(brand, 0.03f);
-        brand.setSingleLine(true);
-        header.addView(brand, new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         return header;
     }
 
