@@ -654,7 +654,7 @@ public final class WallpaperGalleryActivity extends Activity {
         // Bottom-left frosted badge: "▶ 动态" on video cards.
         if (isVideo) {
             TextView badge = new TextView(this);
-            badge.setText(copy("▶  动态", "▶  Motion"));
+            badge.setText(copy("▶  動態", "▶  Motion"));
             badge.setTextColor(0xF5FFFFFF);
             badge.setTextSize(11f);
             badge.setTypeface(fontMedium);
@@ -673,7 +673,7 @@ public final class WallpaperGalleryActivity extends Activity {
                     Gravity.BOTTOM | Gravity.END);
             slp.setMargins(0, 0, dp(10), dp(10));
             cover.addView(state, slp);
-            card.setContentDescription(name + "，" + copy(downloaded ? "已下载" : "未下载",
+            card.setContentDescription(name + "，" + copy(downloaded ? "已下載" : "未下載",
                     downloaded ? "downloaded" : "not downloaded"));
         }
 
@@ -888,7 +888,7 @@ public final class WallpaperGalleryActivity extends Activity {
                     applying = false;
                     progress.animate().alpha(0f).setDuration(180)
                             .withEndAction(() -> cover.removeView(progress)).start();
-                    showStatus(copy("下载失败，请重试", "Download failed. Try again."), true);
+                    showStatus(copy("下載失敗，請重試", "Download failed. Try again."), true);
                     return;
                 }
                 progress.complete(() -> {
