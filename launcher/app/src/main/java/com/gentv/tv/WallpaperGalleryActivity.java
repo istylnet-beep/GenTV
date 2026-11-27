@@ -257,7 +257,8 @@ public final class WallpaperGalleryActivity extends Activity {
                     if (cached != null) {
                         showStatus(copy("网络不可用 · 显示上次内容", "Offline · Showing cached wallpapers"), true);
                     } else {
-                        showStatus(copy("离线模式 · 仅显示本地默认壁纸", "Offline · Default wallpaper only"), true);
+                        // Keep the bundled default wallpaper available without showing an offline notice.
+                        statusPill.setVisibility(View.GONE);
                         renderOfflineFallback();
                     }
                 });
