@@ -62,8 +62,8 @@ fun AdBlockScreen(
         }
         if (s.loading) return@ScreenFrame
         if (s.dns == null) com.gentv.mobile.ui.TextLink("重新读取设置", onRetry)
-        if (on != null) SafetyBanner("Ad blocking is on (${on.blurb}).")
-        if (s.dns?.someoneElses == true) Note("This TV already uses its own Private DNS (${s.dns.host}). Turning this on replaces it, and turning it off puts it back.")
+        if (on != null) SafetyBanner(com.gentv.mobile.ui.AppCopy.translate("Ad blocking is on ({0}).", com.gentv.mobile.ui.LocalAppLanguage.current).replace("{0}", com.gentv.mobile.ui.AppCopy.translate(on.blurb, com.gentv.mobile.ui.LocalAppLanguage.current)))
+        if (s.dns?.someoneElses == true) Note(com.gentv.mobile.ui.AppCopy.translate("This TV already uses its own Private DNS ({0}). Turning this on replaces it, and turning it off puts it back.", com.gentv.mobile.ui.LocalAppLanguage.current).replace("{0}", s.dns.host))
         s.confirmReplace?.let { p ->
             Outline {
                 Text("Replace the DNS this TV already uses?", style = MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink)
