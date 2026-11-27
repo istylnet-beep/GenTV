@@ -42,43 +42,43 @@ fun DiscoveryScreen(state: ConnectState, currentTv: TvSummary?, onEvent: (Connec
     var ip by rememberSaveable { mutableStateOf("") }
     val valid = ConnectMachine.isIp(ip)
     val submit = { if (valid) { manual = false; onEvent(ConnectEvent.TypedIp(ip)) } }
-    CompanionScreen("发现设备", currentTv?.title, 2, onNavigate, showTitle = false) {
+    CompanionScreen("尋找裝置", currentTv?.title, 2, onNavigate, showTitle = false) {
         Column(Modifier.fillMaxWidth().padding(top = 12.dp, bottom = 12.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(12.dp)) {
             DiscoveryRadar(searching)
             Row(Modifier.background(CompanionColors.Raised, CircleShape).padding(horizontal = 12.dp, vertical = 7.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 Icon(Icons.Outlined.Wifi, null, Modifier.size(16.dp), tint = CompanionColors.Blue)
-                Text("同一局域网", color = CompanionColors.Text, fontSize = 13.sp)
+                Text("同一個區域網路", color = CompanionColors.Text, fontSize = 13.sp)
                 Box(Modifier.size(5.dp).background(CompanionColors.Green, CircleShape))
             }
-            Text(if (searching) "正在发现电视与投影仪…" else "本轮搜索已完成", color = CompanionColors.Muted, fontSize = 12.sp)
+            Text(if (searching) "正在尋找電視與投影機…" else "本次搜尋已完成", color = CompanionColors.Muted, fontSize = 12.sp)
         }
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
-            Text("可连接设备 (${devices.count { it.host != currentTv?.host } + if (currentTv != null) 1 else 0})", color = CompanionColors.Secondary, fontSize = 14.sp)
+            Text("可連線裝置 (${devices.count { it.host != currentTv?.host } + if (currentTv != null) 1 else 0})", color = CompanionColors.Secondary, fontSize = 14.sp)
             TextButton(onClick = { onEvent(ConnectEvent.StartScan) }) {
-                Icon(Icons.Outlined.Refresh, null, Modifier.size(16.dp)); Spacer(Modifier.width(4.dp)); Text("重新检测", fontSize = 12.sp)
+                Icon(Icons.Outlined.Refresh, null, Modifier.size(16.dp)); Spacer(Modifier.width(4.dp)); Text("重新搜尋", fontSize = 12.sp)
             }
         }
         currentTv?.let { current -> DeviceDiscoveryCard(FoundTv(current.host, name = current.title, model = current.model), true) { onNavigate(0) } }
         devices.filter { it.host != currentTv?.host }.forEach { tv -> DeviceDiscoveryCard(tv, false) { onEvent(ConnectEvent.Pick(tv)) } }
         if (devices.isEmpty() && currentTv == null) CompanionCard {
             Icon(Icons.Outlined.Tv, null, Modifier.size(32.dp), tint = CompanionColors.Muted)
-            Text(if (searching) "正在搜索附近设备" else "暂未找到可连接设备", color = CompanionColors.Text, fontSize = 16.sp, fontWeight = FontWeight.Medium)
-            Text("请确认电视已开机、开启网络调试，并与手机连接同一家庭网络。", color = CompanionColors.Secondary, fontSize = 13.sp)
+            Text(if (searching) "正在搜尋附近裝置" else "暂未找到可連線裝置", color = CompanionColors.Text, fontSize = 16.sp, fontWeight = FontWeight.Medium)
+            Text("請確認電視已開機、已開啟網路除錯，且與手機連線至同一個家庭網路。", color = CompanionColors.Secondary, fontSize = 13.sp)
         }
-        CompanionButton("手动通过 IP 地址直连", { manual = true }, Modifier.fillMaxWidth().padding(top = 12.dp))
+        CompanionButton("手動輸入 IP 位址直接連線", { manual = true }, Modifier.fillMaxWidth().padding(top = 12.dp))
         TextButton(onClick = { help = true }, modifier = Modifier.align(Alignment.CenterHorizontally)) {
             Icon(Icons.Outlined.HelpOutline, null, Modifier.size(16.dp), tint = CompanionColors.Secondary)
-            Spacer(Modifier.width(6.dp)); Text("未找到设备？查看排查指引", color = CompanionColors.Secondary, fontSize = 13.sp)
+            Spacer(Modifier.width(6.dp)); Text("找不到裝置？查看疑難排解指南", color = CompanionColors.Secondary, fontSize = 13.sp)
         }
-        if (manual) AlertDialog(onDismissRequest = { manual = false }, title = { Text("指定 IP 地址连接") }, text = {
+        if (manual) AlertDialog(onDismissRequest = { manual = false }, title = { Text("指定 IP 位址連線") }, text = {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                Text("请输入电视网络设置中显示的内网 IPv4 地址：")
-                OutlinedTextField(ip, { ip = it.filter { c -> c.isDigit() || c == '.' }.take(15) }, label = { Text("电视 IP 地址") }, singleLine = true,
+                Text("請輸入電視網路設定中顯示的內部 IPv4 位址：")
+                OutlinedTextField(ip, { ip = it.filter { c -> c.isDigit() || c == '.' }.take(15) }, label = { Text("電視 IP 位址") }, singleLine = true,
                     isError = ip.count { it == '.' } == 3 && !valid,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal, imeAction = ImeAction.Go), keyboardActions = KeyboardActions(onGo = { submit() }))
             }
-        }, confirmButton = { TextButton(submit, enabled = valid) { Text("立即连接") } }, dismissButton = { TextButton({ manual = false }) { Text("取消") } })
-        if (help) AlertDialog(onDismissRequest = { help = false }, title = { Text("设备发现排查") }, text = { Text("1. 手机和电视连接同一路由器，避免访客网络。\n\n2. 在电视开发者选项中开启 USB／网络调试；新系统可使用无线调试配对。\n\n3. 电视开启调试后点击重新检测，搜索最长约 20 秒。\n\n4. 路由器隔离或广播受限时，可手动输入电视 IP，并在电视确认授权。") }, confirmButton = { TextButton({ help = false }) { Text("知道了") } })
+        }, confirmButton = { TextButton(submit, enabled = valid) { Text("立即連線") } }, dismissButton = { TextButton({ manual = false }) { Text("取消") } })
+        if (help) AlertDialog(onDismissRequest = { help = false }, title = { Text("裝置搜尋疑難排解") }, text = { Text("1. 手機和電視請連線至同一台路由器，並避免使用訪客網路。\n\n2. 在電視的開發人員選項中開啟 USB／網路除錯；較新的系統可使用無線除錯配對。\n\n3. 电视开启调试后点击重新搜尋，搜索最长约 20 秒。\n\n4. 若路由器啟用了裝置隔離或限制廣播，可手動輸入電視 IP 位址，並在電視上確認授權。") }, confirmButton = { TextButton({ help = false }) { Text("知道了") } })
     }
 }
 
@@ -91,10 +91,10 @@ private fun DeviceDiscoveryCard(tv: FoundTv, connected: Boolean, onClick: () -> 
             }
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
                 Text(tv.title, localize = false, color = CompanionColors.Text, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, maxLines = 2, overflow = TextOverflow.Ellipsis)
-                Text(if (tv.host == "demo") "演示设备 · 无真实电视" else if (connected) "当前电视" else if (tv.tlsPort != null) "无线调试" else if (tv.legacyOpen) "网络调试已开启" else "请确认已开启调试", color = CompanionColors.Muted, fontSize = 11.sp)
+                Text(if (tv.host == "demo") "示範裝置 · 非實際電視" else if (connected) "目前連線的電視" else if (tv.tlsPort != null) "無線除錯" else if (tv.legacyOpen) "網路除錯已開啟" else "請確認已開啟除錯", color = CompanionColors.Muted, fontSize = 11.sp)
             }
             TextButton(onClick, colors = ButtonDefaults.textButtonColors(contentColor = if (connected) CompanionColors.Green else CompanionColors.Blue)) {
-                Text(if (connected) "已连接" else "连接", fontSize = 13.sp)
+                Text(if (connected) "已連線" else "连接", fontSize = 13.sp)
                 if (!connected) Icon(Icons.Outlined.ChevronRight, null, Modifier.size(15.dp))
             }
         }
@@ -138,50 +138,50 @@ fun ConnectionFlowScreen(state: ConnectState, onEvent: (ConnectEvent) -> Unit, o
     var code by rememberSaveable(tv?.host) { mutableStateOf("") }
     var port by rememberSaveable(tv?.host) { mutableStateOf("") }
     val waiting = state is ConnectState.Connecting || state is ConnectState.PressAllow || (state is ConnectState.Pairing && state.busy)
-    CompanionScreen("连接设备", null, 2, onNavigate, onBack = onBack) {
+    CompanionScreen("連線裝置", null, 2, onNavigate, onBack = onBack) {
         Column(Modifier.fillMaxWidth().padding(vertical = 28.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(14.dp)) {
             Icon(Icons.Outlined.Tv, null, Modifier.size(56.dp), tint = CompanionColors.Blue)
-            Text(tv?.title ?: "连接电视", localize = tv == null, color = CompanionColors.Text, fontSize = 22.sp, fontWeight = FontWeight.SemiBold)
+            Text(tv?.title ?: "連線電視", localize = tv == null, color = CompanionColors.Text, fontSize = 22.sp, fontWeight = FontWeight.SemiBold)
         }
         CompanionCard {
             val title = when (state) {
-                is ConnectState.Connecting -> "正在建立连接"
-                is ConnectState.PressAllow -> "请在电视上确认授权"
-                is ConnectState.Pairing -> "无线调试配对"
-                is ConnectState.Connected -> "已连接电视"
-                is ConnectState.TurnOnDebugging -> "请开启网络调试"
-                is ConnectState.Unreachable -> "暂时无法连接电视"
-                is ConnectState.Denied -> "电视拒绝了连接"
-                else -> "连接未完成"
+                is ConnectState.Connecting -> "正在建立連線"
+                is ConnectState.PressAllow -> "請在電視上確認授權"
+                is ConnectState.Pairing -> "無線除錯配对"
+                is ConnectState.Connected -> "已連線电视"
+                is ConnectState.TurnOnDebugging -> "請開啟網路除錯"
+                is ConnectState.Unreachable -> "暂时无法連線電視"
+                is ConnectState.Denied -> "電視拒絕連線"
+                else -> "尚未完成連線"
             }
             Text(title, color = CompanionColors.Text, fontSize = 19.sp, fontWeight = FontWeight.SemiBold)
             val description = when (state) {
-                is ConnectState.Connecting -> "请保持手机和电视在同一网络，并留意电视上的调试授权弹窗。"
-                is ConnectState.PressAllow -> "电视显示“允许 USB 调试？”时，先勾选“始终允许这台计算机”，再用电视遥控器选择“允许”。"
-                is ConnectState.Pairing -> "在电视的开发者选项中打开“无线调试 → 使用配对码配对设备”，输入电视显示的六位配对码。"
-                is ConnectState.TurnOnDebugging -> "电视能够响应，但网络调试尚未开启。请在电视“设置 → 系统 → 开发者选项”打开无线调试、网络调试或 ADB over network。选项置灰时，可先将电视 Wi-Fi 连接到手机所在网络，再重试。"
-                is ConnectState.Unreachable -> "请确认电视已开机、地址正确，并与手机处于同一家庭网络。访客网络或路由器隔离可能阻止连接。"
-                is ConnectState.Denied -> "请重新连接，并在电视上选择“允许”。"
+                is ConnectState.Connecting -> "請讓手機與電視保持在同一個網路，並留意電視上是否出現除錯授權視窗。"
+                is ConnectState.PressAllow -> "電視顯示「允許 USB 除錯？」時，請先勾選「一律允許這台電腦」，再使用電視遙控器選擇「允許」。"
+                is ConnectState.Pairing -> "在电视的开发者选项中打开“無線除錯 → 使用配对码配对设备”，输入电视显示的六位數配對碼。"
+                is ConnectState.TurnOnDebugging -> "电视能够响应，但网络调试尚未开启。请在电视“设置 → 系统 → 开发者选项”打开無線除錯、网络调试或 ADB over network。选项置灰时，可先将电视 Wi-Fi 连接到手机所在网络，再重试。"
+                is ConnectState.Unreachable -> "請確認電視已開機、位址正確，且與手機位於同一個家庭網路。訪客網路或路由器隔離設定可能會阻擋連線。"
+                is ConnectState.Denied -> "請重新連線，並在電視上選擇「允許」。"
                 is ConnectState.Failed -> state.message
-                else -> "可以使用遥控器和应用投送。"
+                else -> "現在可以使用遙控器及應用程式投放內容。"
             }
             Text(description, color = CompanionColors.Secondary, fontSize = 14.sp)
             if (waiting) LinearProgressIndicator(Modifier.fillMaxWidth())
             if (state is ConnectState.Pairing) {
-                OutlinedTextField(code, { code = it.filter(Char::isDigit).take(6) }, Modifier.fillMaxWidth(), label = { Text("六位配对码") }, enabled = !state.busy,
+                OutlinedTextField(code, { code = it.filter(Char::isDigit).take(6) }, Modifier.fillMaxWidth(), label = { Text("六位數配對碼") }, enabled = !state.busy,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword), singleLine = true)
-                if (state.tv.pairPort == null) OutlinedTextField(port, { port = it.filter(Char::isDigit).take(5) }, Modifier.fillMaxWidth(), label = { Text("配对端口") }, enabled = !state.busy,
+                if (state.tv.pairPort == null) OutlinedTextField(port, { port = it.filter(Char::isDigit).take(5) }, Modifier.fillMaxWidth(), label = { Text("配對連接埠") }, enabled = !state.busy,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number), singleLine = true)
                 state.error?.let { Text(it, color = CompanionColors.Error, fontSize = 13.sp) }
                 val validPort = state.tv.pairPort ?: port.toIntOrNull()
-                CompanionButton(if (state.busy) "配对中…" else "配对并连接", { onEvent(ConnectEvent.SubmitCode(code, port.toIntOrNull())) }, Modifier.fillMaxWidth(),
+                CompanionButton(if (state.busy) "配對中…" else "配對並連線", { onEvent(ConnectEvent.SubmitCode(code, port.toIntOrNull())) }, Modifier.fillMaxWidth(),
                     enabled = !state.busy && code.length == 6 && validPort != null && validPort in 1..65535, primary = true)
             }
         }
         if (state is ConnectState.TurnOnDebugging || state is ConnectState.Unreachable || state is ConnectState.Denied || state is ConnectState.Failed || (state is ConnectState.PressAllow && state.canRetry)) {
-            CompanionButton("重试连接", { onEvent(ConnectEvent.Retry) }, Modifier.fillMaxWidth(), primary = true)
+            CompanionButton("重新嘗試連線", { onEvent(ConnectEvent.Retry) }, Modifier.fillMaxWidth(), primary = true)
         }
-        CompanionButton("选择其他设备", { onEvent(ConnectEvent.Back) }, Modifier.fillMaxWidth())
-        if (state is ConnectState.Failed) TextButton(onShareLogs) { Text("导出诊断日志") }
+        CompanionButton("選擇其他裝置", { onEvent(ConnectEvent.Back) }, Modifier.fillMaxWidth())
+        if (state is ConnectState.Failed) TextButton(onShareLogs) { Text("匯出診斷記錄") }
     }
 }
