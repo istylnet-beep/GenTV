@@ -93,7 +93,7 @@ fun AppsScreen(
         val sections = AllAppsView.sections(AllAppsView.search(s.rows, query), s.facts)
         if (sections.isEmpty()) Body("No apps match \"${query.trim()}\".")
         for (sec in sections) {
-            Text("${sec.title} (${sec.size})", style = MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink, modifier = Modifier.padding(top = 4.dp))
+            Text("${com.gentv.mobile.ui.AppCopy.translate(sec.title, com.gentv.mobile.ui.LocalAppLanguage.current)} (${sec.size})", style = MaterialTheme.typography.titleMedium, color = GenTVPalette.Ink, modifier = Modifier.padding(top = 4.dp))
             for (row in sec.all) AppLine(row, labels[row.pkg] ?: row.label, s.busy == row.pkg, enabled = s.busy == null) { onOpen(row.pkg) }
         }
     }
